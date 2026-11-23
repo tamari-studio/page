@@ -290,6 +290,42 @@
         </div>
       </section>
 
+      <!-- DRAFT pricing (feat/pricing). The numbers are placeholders until the owner sets them:
+           $12 per person a month, $99 a month minimum per organisation. The shape is decided: per
+           person, with a per-organisation minimum that covers the org's own database and hosting
+           (its own Supabase project, about $10 a month compute on top of the Supabase plan), no AI
+           markup, and own hosting priced per deal. -->
+      <section class="price wrap" id="pricing" aria-labelledby="price-title">
+        <h2 id="price-title">Pay for the people who use it.</h2>
+        <p class="price__lede">
+          Every organisation gets its own copy and its own database. The minimum covers running them.
+          Past that, you pay per person.
+        </p>
+        <div class="pair">
+          <div class="tier">
+            <h3>Team</h3>
+            <p class="price__amount"><span class="price__n">$12</span> per person a month</p>
+            <p>
+              From $99 a month per organisation, which covers your own database and its hosting.
+              Every space, connector and usage report is included.
+            </p>
+          </div>
+          <div class="tier">
+            <h3>Your own hosting</h3>
+            <p class="price__amount"><span class="price__n">Annual</span> licence</p>
+            <p>
+              Run it on your own servers, with your own database, for data that can’t leave your
+              walls. We price it with you.
+            </p>
+            <a class="button button--quiet" data-brand="contact" data-subject="Pricing: own hosting" href="#start">Talk to sales</a>
+          </div>
+        </div>
+        <p class="price__ai">
+          No markup on AI. Each person connects the AI they already pay for, such as Claude or Codex,
+          so your provider bills you for it and we never do.
+        </p>
+      </section>
+
       <section class="start wrap" id="start" aria-labelledby="start-title">
         <h2 id="start-title">Two ways to start.</h2>
         <p class="start__for">For teams of 20 to 100 where someone already builds tools with a coding agent.</p>

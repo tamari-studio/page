@@ -244,7 +244,7 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 /* Below the hero. One idea per section, set off-centre. */
 .flow { position: relative; z-index: 0; display: flow-root; } /* its own layer, so the glass may reach up over the foot of the hero */
 
-.one, .path, .yours, .start { position: relative; margin-top: var(--gap); }
+.one, .path, .yours, .price, .start { position: relative; margin-top: var(--gap); }
 .one { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; }
 .one h2, .close h2 { font-size: calc(clamp(2.5rem, 5vw, 4.5rem) * var(--display-scale)); line-height: var(--display-leading); }
 .one h2 { max-width: 13ch; }
@@ -325,6 +325,12 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 .tier__when { margin-bottom: 1rem; font-size: 0.9375rem; font-weight: 600; }
 .tier__when--now { color: var(--deep); }
 .tier .button { margin-top: 1.75rem; }
+
+/* Pricing: the two .tier columns of .start, with the price set in the display face. */
+.price__lede { margin-top: 1.5rem; }
+.price__amount { margin-bottom: 1rem; color: var(--soft); }
+.price__n { margin-right: 0.3rem; font: var(--display-weight) calc(2.5rem * var(--display-scale)) / 1.1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--ink); }
+.price__ai { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 /* The arrival: the glass once more, with the seam. */
 .close { position: relative; padding: var(--gap) 0 clamp(6rem, 12vw, 10rem); }
