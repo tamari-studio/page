@@ -9,9 +9,9 @@ const BRAND = {
   name: 'Tamari', // chosen 2026-11-23; written with a capital T, also as the wordmark
   tagline: 'Where your team’s software lives.',
 
-  // Placeholder. Put the real address here; nothing else needs to change. Each
+  // Each
   // button adds its own subject (data-subject in index.html).
-  contactUrl: 'mailto:hello@example.com',
+  contactUrl: 'mailto:info@sunseekerlabs.dk',
 
   // The two typefaces: one for headlines, one for text. All are free web fonts
   // under the SIL Open Font License, self-hosted in site/fonts/ with their
