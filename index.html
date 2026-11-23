@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One place for the software your team builds</title>
+  <meta name="description" data-brand="description" content="One place for the software your team builds.">
+  <link rel="icon" data-brand="icon" href="data:,">
+  <link rel="preload" href="fonts/text.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <!-- brand.js holds the name, tagline, mark, colours, typefaces and contact link. -->
+  <script src="brand.js"></script>
+  <!-- Marks that motion is wanted, before anything is painted (see styles.css). -->
+  <script>matchMedia('(prefers-reduced-motion: reduce)').matches || (document.documentElement.dataset.motion = '')</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Tabler icons (MIT), the set the app itself uses. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/><path d="M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/><path d="M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/><path d="M14 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054"/><path d="M4 20l3.5 -3.5"/><path d="M15 4l-3.5 3.5"/><path d="M20 9l-3.5 3.5"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/></symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M3 9a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2l0 -9"/><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"/><path d="M12 12l0 .01"/><path d="M3 13a20 20 0 0 0 18 0"/></symbol>
+      <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/><path d="M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25"/><path d="M12.5 15.5l2 2"/><path d="M15 13l2 2"/></symbol>
+      <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M15 5l0 2"/><path d="M15 11l0 2"/><path d="M15 17l0 2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><path d="M8 16l2 -6l6 -2l-2 6l-6 2"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 3l0 2"/><path d="M12 19l0 2"/><path d="M3 12l2 0"/><path d="M19 12l2 0"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5l10 -10"/></symbol>
+      <!-- The prismatic gradient of the hero seam in the CSS glass. -->
+      <linearGradient id="prism" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" style="stop-color:var(--prism-4);stop-opacity:0"/>
+        <stop offset=".25" style="stop-color:var(--prism-3)"/>
+        <stop offset=".55" style="stop-color:var(--prism-2)"/>
+        <stop offset=".8" style="stop-color:var(--prism-1)"/>
+        <stop offset="1" style="stop-color:var(--prism-4);stop-opacity:0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <header class="top wrap">
+    <a class="brand" href="#main">
+      <span class="brand__mark" data-brand="mark"></span>
+      <span data-brand="name"></span>
+    </a>
+    <a class="button button--small" data-brand="contact" data-subject="Waitlist" href="#start">Join the waitlist</a>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <!-- The glass. glass.js draws it into the canvas; the CSS forms after it are
+           what paints first, and what stays where WebGL is missing. -->
+      <div class="art" aria-hidden="true">
+        <canvas class="lens" data-lens="hero"></canvas>
+        <div class="glass form form--3"></div>
+        <div class="glass form form--2"></div>
+        <div class="glass form form--1"></div>
+        <svg class="seam" viewBox="0 0 300 260" fill="none">
+          <path class="seam__glow" d="M6 250C70 236 150 196 208 128C246 84 270 44 292 8" stroke="url(#prism)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M6 250C70 236 150 196 208 128C246 84 270 44 292 8" stroke="url(#prism)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <h1 data-brand="tagline"></h1>
+          <p class="lede">
+            Someone asks for a tool in a sentence. A coding agent builds it as a page or a card. It
+            shows up in the one workspace your team already has open, and you keep what people use.
+          </p>
+          <a class="button" data-brand="contact" data-subject="Waitlist" href="#start">Join the waitlist</a>
+        </div>
+
+        <!-- The markup is the finished frame. demo.js plays the loop from the start. -->
+        <figure class="demo" data-ask data-done data-card data-stage="everyone">
+          <div class="ui demo__stage" role="img" aria-label="Illustration. Someone asks a coding agent for a card showing tickets sold per week. The card appears on the dashboard of the Events space. The space is seen by its owners and one person, then by the Events department as well, and then it is opened to everyone.">
+            <div class="win" aria-hidden="true">
+              <div class="win__bar"><i></i><i></i><i></i></div>
+              <div class="win__body">
+                <div class="side">
+                  <div class="side__brand" data-brand="name"></div>
+                  <div class="side__group">
+                    <div class="nav nav--on"><svg><use href="#i-calendar"/></svg>Events</div>
+                    <div class="nav"><svg><use href="#i-handshake"/></svg>Partners</div>
+                    <div class="nav"><svg><use href="#i-briefcase"/></svg>Hiring</div>
+                  </div>
+                  <div class="side__group">
+                    <div class="nav"><svg><use href="#i-plug"/></svg>Connectors</div>
+                    <div class="nav"><svg><use href="#i-users"/></svg>People &amp; access</div>
+                    <div class="nav"><svg><use href="#i-chart"/></svg>Usage</div>
+                  </div>
+                </div>
+                <div class="pane">
+                  <div class="tabs">
+                    <div class="tab tab--on"><svg><use href="#i-grid"/></svg>Widgets</div>
+                    <div class="tab"><svg><use href="#i-ticket"/></svg>Tickets</div>
+                    <div class="tab tab--plus"><svg><use href="#i-plus"/></svg></div>
+                  </div>
+                  <div class="sheet">
+                    <div class="tile">
+                      <div class="tile__title">Tickets sold</div>
+                      <div class="tile__big">1,284</div>
+                      <div class="tile__note">38 this week</div>
+                    </div>
+                    <div class="tile tile--wide">
+                      <b style="width:92px"></b>
+                      <div class="line"><b style="width:46%"></b><b style="width:36px"></b></div>
+                      <div class="line"><b style="width:34%"></b><b style="width:28px"></b></div>
+                      <div class="line"><b style="width:52%"></b><b style="width:36px"></b></div>
+                    </div>
+                    <div class="row2">
+                      <div class="tile tile--new">
+                        <div class="tile__title">Sales per week</div>
+                        <div class="bars">
+                          <i style="--h:30%"></i><i style="--h:44%"></i><i style="--h:38%"></i><i style="--h:60%"></i><i style="--h:52%"></i>
+                          <i style="--h:74%"></i><i style="--h:58%"></i><i style="--h:84%"></i><i style="--h:70%"></i><i style="--h:100%"></i>
+                        </div>
+                      </div>
+                      <div class="tile tile--fill">
+                        <b style="width:64px"></b>
+                        <div class="line"><b style="width:56px"></b><b style="width:22px"></b></div>
+                        <div class="line"><b style="width:84px"></b><b style="width:22px"></b></div>
+                        <div class="line"><b style="width:46px"></b><b style="width:22px"></b></div>
+                        <div class="line"><b style="width:70px"></b><b style="width:22px"></b></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ask" aria-hidden="true">
+              <div class="ask__who">Coding agent</div>
+              <div class="ask__text"><span data-type>Add a card to Events: tickets sold per week.</span><i class="caret"></i></div>
+              <div class="ask__done"><svg><use href="#i-check"/></svg>Wrote <code>widgets/sales.tsx</code></div>
+            </div>
+
+            <div class="stages" aria-hidden="true">
+              <!-- The app's own words: the two choices under People & access, Spaces, and its "Seen by" line. -->
+              <div class="stages__track">
+                <span data-pick="some">Only the people I pick</span>
+                <span data-pick="all">Everyone</span>
+                <div class="stages__on"><span>Only the people I pick</span><span>Everyone</span></div>
+              </div>
+              <div class="stages__seen">
+                <span data-seen="draft">Seen by: Owners and 1 person</span>
+                <span data-seen="team">Seen by: Owners and Events</span>
+                <span data-seen="everyone">Seen by: Everyone</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>An illustration, not a recording.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="flow">
+      <section class="one wrap" aria-labelledby="one-title">
+        <canvas class="lens one__lens" data-lens="one" aria-hidden="true"></canvas>
+        <div class="glass glass--quiet one__glass" aria-hidden="true"></div>
+        <h2 id="one-title">One place, instead of a scatter of small apps.</h2>
+        <div class="one__text">
+          <p>
+            When a team starts building its own tools, they end up everywhere: a link here, a login
+            there, a script only one person can run.
+          </p>
+          <p>
+            Here each tool is a page or a card in the same workspace, behind one sign-in. It is a
+            place your team returns to and keeps improving, not something you install once.
+          </p>
+        </div>
+      </section>
+
+      <section class="path wrap" aria-labelledby="path-title">
+        <h2 id="path-title">A tool earns its place.</h2>
+        <ol class="steps">
+          <li>
+            <figure class="scene scene--learn">
+              <div class="ui scene__stage" role="img" aria-label="Illustration: the guide page, with its Get started list of four first steps for admins. Connect a service is done, and Let your team in is ticked, which leaves two.">
+                <div class="scene__in" aria-hidden="true">
+                  <div class="tabs">
+                    <div class="tab tab--on"><svg><use href="#i-compass"/></svg><span>How <span data-brand="name"></span> works</span></div>
+                    <div class="tab"><svg><use href="#i-grid"/></svg>Widgets</div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel__head">Get started</div>
+                    <div class="panel__count">For admins: <span class="roll" style="--n:2"><span class="roll__strip"><i>3</i><i>2</i></span></span> of 4 first steps left.</div>
+                    <div class="todo todo--done"><span class="tick"><svg><use href="#i-check"/></svg></span>Connect a service</div>
+                    <div class="todo todo--done todo--now"><span class="tick"><svg><use href="#i-check"/></svg></span>Let your team in</div>
+                    <div class="todo"><span class="tick"></span>Set up departments</div>
+                    <div class="todo"><span class="tick"></span>Add your first space</div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+            <h3>Learn</h3>
+            <p>You sign in to a workspace that already works. A guide and four steps show how it fits together.</p>
+          </li>
+          <li>
+            <figure class="scene scene--shape">
+              <div class="ui scene__stage" role="img" aria-label="Illustration: a space called Events, seen by its owners and the Events department. Its card is adjusted, and a line below reads: opened by 6 people this week.">
+                <div class="scene__in" aria-hidden="true">
+                  <div class="space"><svg><use href="#i-calendar"/></svg>Events<span class="badge">Seen by: Owners and Events</span></div>
+                  <div class="tile">
+                    <div class="tile__title">Sales per week</div>
+                    <div class="bars bars--adjust">
+                      <i style="--from:62%;--h:34%"></i><i style="--from:30%;--h:46%"></i><i style="--from:74%;--h:42%"></i><i style="--from:38%;--h:60%"></i>
+                      <i style="--from:56%;--h:54%"></i><i style="--from:44%;--h:76%"></i><i style="--from:82%;--h:68%"></i><i style="--from:50%;--h:100%"></i>
+                    </div>
+                  </div>
+                  <div class="usage"><svg><use href="#i-users"/></svg>Opened by <span class="roll" style="--n:5"><span class="roll__strip"><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i></span></span> people this week</div>
+                </div>
+              </div>
+            </figure>
+            <h3>Shape</h3>
+            <p>You build a space with a coding agent. It stays with your team while it settles, and you see what people open.</p>
+          </li>
+          <li>
+            <figure class="scene scene--share">
+              <div class="ui scene__stage" role="img" aria-label="Illustration: who sees the Events space is changed from Only the people I pick to Everyone, and it appears in the sidebars of two other people, Mia and Jonas.">
+                <div class="scene__in" aria-hidden="true">
+                  <div class="space"><svg><use href="#i-calendar"/></svg>Events
+                    <span class="seg"><span class="seg__pill"></span><span>Only the people I pick</span><span>Everyone</span></span>
+                  </div>
+                  <div class="people">
+                    <div class="who">
+                      <div class="who__head"><span class="avatar">M</span>Mia</div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:52%"></b></div>
+                      <div class="nav nav--new"><svg><use href="#i-calendar"/></svg>Events</div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:38%"></b></div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:60%"></b></div>
+                    </div>
+                    <div class="who">
+                      <div class="who__head"><span class="avatar avatar--2">J</span>Jonas</div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:44%"></b></div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:58%"></b></div>
+                      <div class="nav nav--new"><svg><use href="#i-calendar"/></svg>Events</div>
+                      <div class="nav"><b style="width:14px;height:14px;border-radius:4px"></b><b style="width:36%"></b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+            <h3>Share</h3>
+            <p>What people keep using is opened to everyone. The rest is retired.</p>
+          </li>
+        </ol>
+        <div class="path__foot">
+          <p class="shuhari">
+            <span lang="ja">守破離</span> Shuhari: follow the form, break the form, leave the form. An old
+            name for how a craft is learned.
+          </p>
+          <p class="note">
+            The three pictures are illustrations. Today you move a space along by changing who can
+            see it. Ready-made spaces to copy, and one-step promote and retire, are planned.
+          </p>
+        </div>
+      </section>
+
+      <section class="yours wrap" aria-labelledby="yours-title">
+        <canvas class="lens yours__lens" data-lens="yours" aria-hidden="true"></canvas>
+        <div class="glass glass--quiet yours__glass" aria-hidden="true"></div>
+        <h2 id="yours-title">It stays yours.</h2>
+        <div class="pair">
+          <div>
+            <h3>You decide who sees what</h3>
+            <p>
+              People sign in with a link sent to their email. A space is open to one person, a
+              department or everyone.
+            </p>
+          </div>
+          <div>
+            <h3>Your own copy, your own database</h3>
+            <p>
+              Each organisation has its own copy and its own database for sign-in and data. Usage
+              numbers are kept there and sent nowhere else.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="start wrap" id="start" aria-labelledby="start-title">
+        <h2 id="start-title">Two ways to start.</h2>
+        <p class="start__for">For teams of 20 to 100 where someone already builds tools with a coding agent.</p>
+        <div class="pair">
+          <div class="tier">
+            <h3>Guided</h3>
+            <p class="tier__when tier__when--now">Available today</p>
+            <p>We set it up, onboard your team and build your first spaces with you.</p>
+            <a class="button" data-brand="contact" data-subject="Talk to sales: Guided" href="#start">Talk to sales</a>
+          </div>
+          <div class="tier">
+            <h3>Cloud</h3>
+            <p class="tier__when">Coming soon</p>
+            <p>We host your copy. You sign up and manage it yourself.</p>
+            <a class="button button--quiet" data-brand="contact" data-subject="Waitlist: Cloud" href="#start">Join the waitlist</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="close wrap" aria-labelledby="close-title">
+      <canvas class="lens close__lens" data-lens="close" aria-hidden="true"></canvas>
+      <div class="glass close__glass" aria-hidden="true"></div>
+      <h2 id="close-title">Start with the tool your team keeps asking for.</h2>
+      <a class="button" data-brand="contact" data-subject="Waitlist" href="#start">Join the waitlist</a>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <span class="brand">
+      <span class="brand__mark" data-brand="mark"></span>
+      <span data-brand="name"></span>
+    </span>
+    <span>A working name.</span>
+  </footer>
+
+  <script src="demo.js"></script>
+  <script src="glass.js"></script>
+</body>
+</html>

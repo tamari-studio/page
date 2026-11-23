@@ -1,0 +1,376 @@
+/* Colours, typefaces and their tuning come from brand.js (--ground, --paper,
+   --ink, --soft, --line, --mist, --sky, --core, --deep, --prism-1..4,
+   --font-display, --font-text, --display-*). Nothing here depends on the name. */
+
+@font-face { font-family: 'Brand Display'; src: url('fonts/display.woff2') format('woff2'); font-weight: 300 500; font-display: swap; }
+@font-face { font-family: 'Brand Display Geist'; src: url('fonts/display-geist.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Brand Text'; src: url('fonts/text.woff2') format('woff2'); font-weight: 200 900; font-display: swap; }
+
+:root {
+  --font-ui: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; /* the app's own face, for the illustrations */
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --edge: max(var(--pad), calc((100vw - 72rem) / 2)); /* the left edge of the content column */
+  --gap: clamp(6rem, 13vw, 11rem); /* between sections */
+  --travel: cubic-bezier(0.4, 0, 0.3, 1); /* between two resting places */
+  --arrive: cubic-bezier(0.25, 0.8, 0.25, 1); /* from nowhere */
+  --out: cubic-bezier(0.22, 1, 0.36, 1); /* hover and press */
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+main { overflow-x: clip; } /* the glass runs off both sides */
+.wrap { width: min(100% - 2 * var(--pad), 72rem); margin-inline: auto; }
+
+h1, h2, h3, p, ol { margin: 0; }
+h1, h2 { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); text-wrap: balance; }
+h1 { font-size: calc(clamp(3rem, 5.5vw, 5rem) * var(--display-scale)); line-height: var(--display-leading); }
+h2 { font-size: calc(clamp(2.125rem, 3.6vw, 3.25rem) * var(--display-scale)); line-height: calc(var(--display-leading) + 0.07); max-width: 18ch; }
+h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.35; }
+p { color: var(--soft); max-width: 31rem; text-wrap: pretty; }
+p + p { margin-top: 1em; }
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--deep); outline-offset: 3px; border-radius: 4px; }
+
+.skip { position: absolute; left: 1rem; top: -4rem; z-index: 5; padding: 0.5rem 0.9rem; border-radius: 8px; background: var(--ink); color: var(--paper); }
+.skip:focus { top: 1rem; }
+
+/* Top bar */
+.top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.5rem; }
+.brand { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+.brand__mark { display: inline-flex; width: 1.375rem; height: 1.375rem; }
+.brand__mark:empty { display: none; }
+.brand__mark svg { display: block; width: 100%; height: 100%; }
+
+.button {
+  display: inline-flex; align-items: center; justify-content: center; height: 2.875rem; padding: 0 1.4rem;
+  border-radius: 999px; background: var(--ink); color: var(--paper);
+  font-size: 1rem; font-weight: 600; text-decoration: none; white-space: nowrap;
+  transition: background-color 0.2s var(--out);
+}
+.button:hover { background: color-mix(in srgb, var(--ink) 84%, var(--paper)); }
+.button--small { height: 2.375rem; padding: 0 1.05rem; font-size: 0.9375rem; }
+.button--quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 55%, transparent); }
+.button--quiet:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+
+/* Glass. One recipe, drawn only with gradients and shadows, so the still
+   picture needs no script. From the top of a form down: a hard specular rim,
+   a dark saturated band just under it (the thickness of the glass), a second
+   fainter rim a little way inside (the far wall seen through the near one), a
+   caustic pooling under the rim, then the colour draining to near-white at
+   the foot, where a bright lower lip meets the contact shadow on what is
+   below. --r is the form's four corners. */
+.glass {
+  position: absolute; border-radius: var(--r, 9rem);
+  background:
+    radial-gradient(46% 20% at 44% 9%, rgb(255 255 255 / 0.5), transparent 72%),
+    radial-gradient(95% 62% at 24% 6%, var(--core), transparent 74%),
+    linear-gradient(178deg, var(--sky) 0%, var(--mist) 44%, var(--paper) 86%);
+  box-shadow:
+    inset 0 2.5px 1px -0.5px #fff,
+    inset 0 0 0 1px rgb(255 255 255 / 0.55),
+    inset 0 1.3rem 1.3rem -1rem color-mix(in srgb, var(--deep) 62%, transparent),
+    inset 1.6rem 0 2rem -1.7rem color-mix(in srgb, var(--deep) 45%, transparent),
+    inset -1.2rem 0 2rem -1.2rem rgb(255 255 255 / 0.9),
+    inset 0 -2px 1px -0.5px #fff,
+    inset 0 -4rem 3.5rem -2rem #fff,
+    0 1.5px 0 -0.5px rgb(255 255 255 / 0.8),
+    0 1.6rem 2rem -1.1rem color-mix(in srgb, var(--deep) 40%, transparent),
+    0 4.5rem 5.5rem -3rem var(--core);
+}
+.glass::before {
+  content: ''; position: absolute; inset: 0.8rem; border-radius: inherit;
+  box-shadow: inset 0 1.5px 1.5px -0.5px rgb(255 255 255 / 0.85), inset 1.5px 0 1.5px -0.5px rgb(255 255 255 / 0.4);
+  -webkit-mask-image: linear-gradient(160deg, #000 10%, transparent 52%); mask-image: linear-gradient(160deg, #000 10%, transparent 52%);
+}
+.glass::after {
+  content: ''; position: absolute; left: 12%; right: 38%; top: 7%; height: 9%; border-radius: 50%;
+  background: linear-gradient(rgb(255 255 255 / 0.75), rgb(255 255 255 / 0)); filter: blur(5px);
+}
+/* Below the hero the glass is quieter: no saturated core, nothing darker than
+   --sky, so a line of text may cross it and still pass AA. */
+.glass--quiet {
+  background:
+    radial-gradient(46% 20% at 44% 9%, rgb(255 255 255 / 0.6), transparent 72%),
+    linear-gradient(178deg, var(--sky) 0%, var(--mist) 40%, var(--ground) 84%);
+  box-shadow:
+    inset 0 2.5px 1px -0.5px #fff,
+    inset 0 0 0 1px rgb(255 255 255 / 0.6),
+    inset 0 1.1rem 1.2rem -1rem color-mix(in srgb, var(--core) 60%, transparent),
+    inset -1.2rem 0 2rem -1.2rem rgb(255 255 255 / 0.9),
+    inset 0 -2px 1px -0.5px #fff,
+    inset 0 -4rem 3.5rem -2rem var(--ground),
+    0 3rem 4rem -2.5rem var(--sky);
+}
+
+/* The shader's canvases (glass.js). Each fades in over the CSS glass it
+   replaces once its first frame is drawn, and the CSS glass comes back if the
+   canvas is switched off again. Nothing here takes part in layout. */
+.lens { position: absolute; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1.2s var(--travel); }
+.lens.is-on { opacity: 1; }
+.glass, .seam { transition: opacity 1.2s var(--travel), visibility 0s; }
+.lens.is-on ~ :is(.glass, .seam) { opacity: 0; visibility: hidden; animation: none; transition: opacity 1.2s var(--travel), visibility 0s 1.2s; }
+
+/* Hero */
+.hero { position: relative; margin-top: -5.375rem; padding-top: 5.375rem; overflow: clip; }
+.hero__grid {
+  position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 31rem) minmax(0, 1fr); gap: clamp(3.5rem, 9.5vw, 8.5rem);
+  align-items: end; padding: clamp(2rem, 5vw, 4rem) 0 clamp(6rem, 10vw, 9rem) var(--edge);
+}
+.hero__copy { padding-bottom: clamp(1rem, 6vw, 5.5rem); }
+.lede { margin: 1.75rem 0 2.25rem; font-size: 1.25rem; line-height: 1.5; max-width: 25rem; }
+
+.art { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(180deg, color-mix(in srgb, var(--sky) 46%, var(--ground)) 0%, color-mix(in srgb, var(--mist) 62%, var(--ground)) 44%, var(--ground) 88%); }
+.art .lens { inset: 0; z-index: 3; width: 100%; height: 100%; }
+.art::after { content: ''; position: absolute; inset: auto 0 0; height: 12rem; z-index: 4; background: linear-gradient(transparent, var(--ground)); }
+.form { will-change: transform; animation: drift 26s ease-in-out infinite alternate; }
+.form--1 { z-index: 3; left: calc(var(--edge) + 39rem); top: 0.75rem; width: 24rem; height: 19rem; --r: 9.5rem 9.5rem 9.5rem 2.5rem; }
+.form--2 { z-index: 2; left: calc(var(--edge) + 30.25rem); top: 11rem; width: 27rem; height: 21.5rem; --r: 10.5rem 2.5rem 10.5rem 10.5rem; animation-duration: 32s; animation-delay: -9s; }
+.form--3 { z-index: 1; left: calc(var(--edge) + 27.5rem); top: 31rem; width: 29rem; height: 21rem; --r: 11rem 11rem 3rem 11rem; animation-duration: 38s; animation-delay: -20s; }
+.seam { position: absolute; z-index: 3; left: calc(var(--edge) + 28.75rem); top: 9.25rem; width: 15rem; overflow: visible; will-change: opacity; animation: breathe 14s ease-in-out infinite alternate; }
+.seam__glow { filter: blur(7px); opacity: 0.4; }
+.art.is-paused * { animation-play-state: paused; }
+@keyframes drift { from { transform: translate3d(0, -7px, 0); } to { transform: translate3d(0, 7px, 0); } }
+@keyframes breathe { from { opacity: 0.65; } to { opacity: 1; } }
+
+/* The illustrations. Their neutrals are the app's own (app/client/base.css) and
+   their face is the app's own; all of it is scoped under .ui. */
+.ui { position: relative; font: 13.5px/1.3 var(--font-ui); color: #0a0a0a; }
+.ui svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.ui b { display: block; height: 6px; border-radius: 3px; background: #ebebeb; flex: none; }
+.ui code { font: 12px/1 var(--mono); color: #0a0a0a; }
+.ui .nav { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; border-radius: 8px; color: #6b6b6b; }
+.ui .nav--on { background: #fff; color: #0a0a0a; font-weight: 500; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06), 0 2px 4px rgb(0 0 0 / 0.04); }
+.ui .tabs { display: flex; align-items: flex-end; gap: 2px; height: 40px; flex: none; }
+.ui .tab { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 10px 10px 0 0; color: #6b6b6b; }
+.ui .tab--on { background: #fff; color: #0a0a0a; }
+.ui .tab--plus { padding: 0 8px; }
+.ui .tile { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 14px 16px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08); }
+.ui .tile__title { color: #6b6b6b; }
+.ui .tile__big { margin-top: auto; font-size: 34px; font-weight: 450; line-height: 1; letter-spacing: -0.03em; }
+.ui .tile__note { color: #6b6b6b; font-size: 12px; }
+.ui .line { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 30px; margin-top: 6px; border-top: 1px solid rgb(0 0 0 / 0.06); }
+.ui .line:first-of-type { margin-top: 16px; }
+.ui .bars { flex: 1; min-height: 0; display: flex; align-items: flex-end; gap: 7px; padding-top: 6px; }
+.ui .bars i { flex: 1; height: var(--h); border-radius: 4px 4px 1px 1px; background: var(--sky); transform-origin: bottom; }
+.ui .bars i:last-child { background: var(--deep); }
+
+.demo { margin: 0; min-width: 0; }
+.demo figcaption { margin-top: 4.25rem; padding-left: 13.75rem; font-size: 0.875rem; color: var(--soft); }
+.demo .win {
+  width: calc(100% + 5rem); height: 33rem; border-radius: 14px; background: #f5f5f5; overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(15 18 32 / 0.06), 0 2px 6px -2px rgb(15 18 32 / 0.1), 0 28px 60px -20px rgb(40 55 120 / 0.34);
+}
+.demo .win__bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; }
+.demo .win__bar i { width: 11px; height: 11px; border-radius: 50%; background: #dcdcdc; }
+.demo .win__body { display: flex; height: calc(100% - 38px); }
+.demo .side { display: flex; flex-direction: column; justify-content: space-between; width: 13rem; flex: none; padding: 4px 10px 14px; }
+.demo .side__brand { height: 30px; padding: 0 10px; font-size: 15px; font-weight: 550; letter-spacing: -0.01em; }
+.demo .side__group { display: grid; gap: 2px; }
+.demo .side__group:nth-child(2) { margin-bottom: auto; margin-top: 10px; }
+.demo .pane { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 0 12px 12px 0; }
+.demo .sheet { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 0.8fr) minmax(0, 1fr); gap: 12px; padding: 14px; border-radius: 0 12px 12px 12px; background: #fff; }
+.demo .tile--wide { grid-column: span 2; gap: 0; }
+
+/* Row two: the neighbour makes room, then the new card arrives whole from just above. */
+.demo .row2 { grid-column: 1 / -1; position: relative; display: flex; min-height: 0; }
+.demo .tile--fill { flex: 1; gap: 0; margin-left: 0; transition: margin-left 1.1s var(--travel); }
+.demo .tile--new { position: absolute; z-index: 1; inset: 0 auto 0 0; width: calc(66.667% - 4px); opacity: 0; transform: translateY(-10px); transition: opacity 0.5s var(--travel), transform 0.5s var(--travel); }
+.demo[data-card] .tile--fill { margin-left: calc(66.667% + 8px); }
+.demo[data-card] .tile--new { opacity: 1; transform: none; transition: opacity 0.5s var(--arrive) 0.3s, transform 1.1s var(--arrive) 0.3s; }
+.demo .bars i { transform: scaleY(0); }
+.demo[data-card] .bars i { transform: none; transition: transform 1s var(--arrive) calc(0.7s + var(--i) * 0.05s); }
+.demo .bars i:nth-child(1) { --i: 0; } .demo .bars i:nth-child(2) { --i: 1; } .demo .bars i:nth-child(3) { --i: 2; } .demo .bars i:nth-child(4) { --i: 3; } .demo .bars i:nth-child(5) { --i: 4; }
+.demo .bars i:nth-child(6) { --i: 5; } .demo .bars i:nth-child(7) { --i: 6; } .demo .bars i:nth-child(8) { --i: 7; } .demo .bars i:nth-child(9) { --i: 8; } .demo .bars i:nth-child(10) { --i: 9; }
+
+/* The request: a second, smaller object that sits across the window's left edge. */
+.demo .ask {
+  position: absolute; left: -4.5rem; bottom: 4.75rem; width: 17rem; padding: 14px 16px 13px; border-radius: 14px; background: #fff;
+  box-shadow: 0 0 0 1px rgb(15 18 32 / 0.07), 0 4px 10px -4px rgb(15 18 32 / 0.14), 0 22px 44px -18px rgb(40 55 120 / 0.4);
+  opacity: 0; transform: translateY(-10px); transition: opacity 0.5s var(--travel), transform 0.5s var(--travel);
+}
+.demo[data-ask] .ask { opacity: 1; transform: none; transition: opacity 0.7s var(--arrive), transform 1s var(--arrive); }
+.demo .ask__who { font-size: 12px; color: #6b6b6b; }
+.demo .ask__text { min-height: 2.8em; margin-top: 6px; font-size: 15px; line-height: 1.4; letter-spacing: -0.005em; }
+.demo .caret { display: inline-block; width: 1.5px; height: 1.05em; margin-left: 1px; vertical-align: -0.16em; background: #0a0a0a; opacity: 0; }
+.demo[data-typing] .caret { opacity: 1; animation: caret 1.1s steps(1) infinite; }
+.demo .ask__done { display: flex; align-items: center; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgb(0 0 0 / 0.07); font-size: 12.5px; color: #6b6b6b; opacity: 0; transition: opacity 0.6s var(--arrive); }
+.demo[data-done] .ask__done { opacity: 1; }
+.demo .ask__done svg { width: 14px; height: 14px; stroke: #15803d; stroke-width: 2.25; }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* The stage: a small object on the window's lower edge. */
+.demo .stages {
+  position: absolute; left: 13.75rem; bottom: -3rem; padding: 5px; border-radius: 18px; background: #fff;
+  box-shadow: 0 0 0 1px rgb(15 18 32 / 0.07), 0 4px 10px -4px rgb(15 18 32 / 0.14), 0 18px 36px -16px rgb(40 55 120 / 0.4);
+  transition: opacity 0.5s var(--travel);
+}
+.demo .stages__track { position: relative; display: flex; }
+.demo .stages__track span { padding: 7px 14px; font-weight: 500; white-space: nowrap; color: #6b6b6b; }
+/* The chosen one: the same two labels in white on black, laid exactly over the
+   grey ones and clipped to the choice. demo.js measures the clip, so a label is
+   never half one colour while the highlight travels. */
+.demo .stages__on { position: absolute; inset: 0; display: flex; border-radius: 13px; background: #0a0a0a; transition: clip-path 0.9s var(--travel); }
+.demo .stages__on span { color: #fff; }
+.demo .stages__seen { display: grid; padding: 6px 14px 5px; font-size: 12px; color: #6b6b6b; }
+.demo .stages__seen span { grid-area: 1 / 1; opacity: 0; transform: translateY(5px); transition: opacity 0.35s var(--travel), transform 0.35s var(--travel); }
+.demo[data-stage='draft'] [data-seen='draft'],
+.demo[data-stage='team'] [data-seen='team'],
+.demo[data-stage='everyone'] [data-seen='everyone'] { opacity: 1; transform: none; transition: opacity 0.6s var(--arrive) 0.35s, transform 0.7s var(--arrive) 0.35s; }
+
+/* Leaving: what the loop added goes as one thing; the stage dims while it returns. */
+.demo[data-out] .ask, .demo[data-out] .tile--new { opacity: 0; transform: translateY(-10px); transition: opacity 0.5s var(--travel), transform 0.5s var(--travel); }
+.demo[data-out] .tile--new { transition-delay: 0.06s; }
+.demo[data-out] .tile--fill { margin-left: 0; transition-delay: 0.15s; }
+.demo[data-out] .stages { opacity: 0; }
+.demo[data-snap] *, .demo[data-snap] { transition: none !important; }
+/* Until demo.js takes over, what the loop will add stays hidden, so the
+   finished frame never flashes before the first one. */
+html[data-motion] .demo:not([data-live]) :is(.ask, .tile--new, .stages) { opacity: 0; transition: none; }
+html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transition: none; }
+
+/* Below the hero. One idea per section, set off-centre. */
+.flow { position: relative; z-index: 0; display: flow-root; } /* its own layer, so the glass may reach up over the foot of the hero */
+
+.one, .path, .yours, .start { position: relative; margin-top: var(--gap); }
+.one { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.one h2, .close h2 { font-size: calc(clamp(2.5rem, 5vw, 4.5rem) * var(--display-scale)); line-height: var(--display-leading); }
+.one h2 { max-width: 13ch; }
+.one__lens { left: 58%; top: -13rem; width: calc(42% + var(--edge) + 6rem); height: 36rem; }
+.one__glass { z-index: -1; left: calc(100% + 1.5rem); top: 8rem; width: 26rem; height: 21rem; --r: 9rem 9rem 9rem 2.5rem; }
+
+.steps { list-style: none; padding: 0; margin-top: clamp(3rem, 6vw, 5rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); }
+.steps li:nth-child(2) { --d: 1.7s; }
+.steps li:nth-child(3) { --d: 3.4s; }
+.steps h3, .tier h3 { margin-bottom: 0.5rem; font: var(--display-weight) calc(1.875rem * var(--display-scale)) / 1.15 var(--font-display); letter-spacing: -0.01em; }
+.path__foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); margin-top: clamp(3rem, 6vw, 5rem); font-size: 0.9375rem; }
+.path__foot .note { grid-column: 2 / -1; margin: 0; }
+.shuhari span { margin-right: 0.5em; color: var(--ink); letter-spacing: 0.12em; }
+
+/* The three scenes. Each plays once when it comes into view and rests on its
+   last frame. The rules below are that last frame; [data-wait], set by
+   demo.js, is the first one, and --d lets a row of three take turns. */
+.scene { margin: 0 0 1.75rem; height: 15.5rem; border-radius: 14px; background: #f5f5f5; overflow: hidden; box-shadow: 0 0 0 1px rgb(15 18 32 / 0.06), 0 2px 6px -2px rgb(15 18 32 / 0.08), 0 22px 44px -22px rgb(40 55 120 / 0.3); }
+.scene__stage { height: 100%; }
+.scene__in { position: absolute; inset: 0 14px; display: flex; flex-direction: column; }
+.scene .roll { display: inline-block; height: 1.3em; overflow: hidden; vertical-align: bottom; }
+.scene .roll__strip { display: block; transform: translateY(calc(-100% * (var(--n) - 1) / var(--n))); transition: transform 1.4s var(--arrive) calc(var(--d, 0s) + 1.3s); }
+.scene .roll i { display: block; height: 1.3em; font-style: normal; text-align: center; }
+.scene[data-wait] .roll__strip { transform: none; }
+.scene .space { display: flex; align-items: center; gap: 8px; height: 46px; flex: none; padding: 0 4px; font-size: 14px; font-weight: 500; }
+
+.scene--learn .scene__in { padding-top: 6px; }
+.scene .panel { flex: 1; padding: 14px 16px; border-radius: 0 12px 0 0; background: #fff; }
+.scene .panel__head { font-size: 14.5px; font-weight: 500; }
+.scene .panel__count { margin: 3px 0 9px; color: #6b6b6b; font-variant-numeric: tabular-nums; }
+.scene .todo { display: flex; align-items: center; gap: 10px; height: 32px; border-top: 1px solid rgb(0 0 0 / 0.06); transition: color 0.6s var(--travel) calc(var(--d, 0s) + 0.9s), text-decoration-color 0.6s var(--travel) calc(var(--d, 0s) + 0.9s); }
+.scene .todo { text-decoration: line-through transparent; }
+.scene .todo--done { color: #6b6b6b; text-decoration-color: currentColor; }
+.scene .tick { display: grid; place-items: center; width: 16px; height: 16px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1.5px #c9c9c9; transition: background-color 0.4s var(--travel) calc(var(--d, 0s) + 0.7s), box-shadow 0.4s var(--travel) calc(var(--d, 0s) + 0.7s); }
+.scene .todo--done .tick { background: #0a0a0a; box-shadow: none; }
+.scene .tick svg { width: 10px; height: 10px; stroke: #fff; stroke-width: 3; stroke-dasharray: 24; stroke-dashoffset: 0; transition: stroke-dashoffset 0.5s var(--arrive) calc(var(--d, 0s) + 0.95s); }
+.scene[data-wait] .todo--now { color: #0a0a0a; text-decoration-color: transparent; }
+.scene[data-wait] .todo--now .tick { background: transparent; box-shadow: inset 0 0 0 1.5px #c9c9c9; }
+.scene[data-wait] .todo--now .tick svg { stroke-dashoffset: 24; }
+
+.scene--shape .scene__in { bottom: 0; }
+.scene .badge { margin-left: auto; color: #6b6b6b; font-size: 12px; font-weight: 400; white-space: nowrap; }
+.scene--shape .tile { flex: 1; min-height: 0; padding: 12px 14px; }
+.scene .bars--adjust i { transition: height 1.1s var(--travel) calc(var(--d, 0s) + 0.6s), background-color 0.6s var(--travel) calc(var(--d, 0s) + 1.2s); }
+.scene[data-wait] .bars--adjust i { height: var(--from); background: var(--sky); }
+.scene .usage { display: flex; align-items: center; gap: 0.35em; height: 42px; flex: none; padding: 0 4px; color: #6b6b6b; font-variant-numeric: tabular-nums; }
+.scene .usage svg { margin-right: 4px; }
+.scene .usage .roll { color: #0a0a0a; font-weight: 600; }
+
+.scene .seg { --some: 9.4rem; --all: 4.8rem; position: relative; display: grid; grid-template-columns: var(--some) var(--all); margin-left: auto; padding: 3px; border-radius: 999px; background: #f0f0f0; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05); font-size: 12.5px; font-weight: 400; white-space: nowrap; }
+.scene .seg span:not(.seg__pill) { position: relative; padding: 5px 0; text-align: center; color: #6b6b6b; transition: color 0.5s var(--travel) calc(var(--d, 0s) + 0.75s); }
+.scene .seg span:last-child { color: #0a0a0a; }
+.scene .seg__pill { position: absolute; top: 3px; bottom: 3px; left: 3px; width: var(--all); border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); transform: translateX(var(--some)); transition: transform 0.9s var(--travel) calc(var(--d, 0s) + 0.6s), width 0.9s var(--travel) calc(var(--d, 0s) + 0.6s); }
+.scene[data-wait] .seg__pill { width: var(--some); transform: none; }
+.scene[data-wait] .seg span:last-child { color: #6b6b6b; }
+.scene[data-wait] .seg span:nth-child(2) { color: #0a0a0a; }
+.scene .people { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.scene .who { padding: 10px 8px 0; border-radius: 12px 12px 0 0; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.07); overflow: hidden; }
+.scene .who__head { display: flex; align-items: center; gap: 8px; height: 26px; margin-bottom: 6px; padding: 0 6px; font-size: 12.5px; color: #6b6b6b; }
+.scene .avatar { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--deep); color: #fff; font-size: 10.5px; font-weight: 600; }
+.scene .avatar--2 { background: #5b6176; }
+.scene .who .nav { padding: 0 6px; }
+.scene .nav--new { color: #0a0a0a; font-weight: 500; overflow: hidden; transition: height 0.9s var(--travel) calc(var(--d, 0s) + 1.5s), opacity 0.7s var(--arrive) calc(var(--d, 0s) + 2s); }
+.scene .who + .who .nav--new { transition-delay: calc(var(--d, 0s) + 2s), calc(var(--d, 0s) + 2.5s); }
+.scene[data-wait] .nav--new { height: 0; opacity: 0; }
+.scene[data-wait] * { transition-duration: 0s !important; transition-delay: 0s !important; }
+
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 4rem); margin-top: clamp(3rem, 6vw, 5rem); }
+.pair > div { padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.pair h3 { margin-bottom: 0.6rem; }
+.yours h2, .yours .pair { margin-left: clamp(0rem, 16vw, 16rem); }
+.yours__lens { left: calc(var(--edge) * -1 - 8rem); top: -10rem; width: calc(var(--edge) + 30rem); height: 30rem; }
+.yours__glass { z-index: -1; right: calc(100% - 10.5rem); top: -4.5rem; width: 25rem; height: 20rem; --r: 9rem 2.5rem 9rem 9rem; }
+
+.start__for { margin-top: 1.5rem; }
+.tier { display: flex; flex-direction: column; align-items: flex-start; }
+.tier h3 { margin-bottom: 0.25rem; }
+.tier__when { margin-bottom: 1rem; font-size: 0.9375rem; font-weight: 600; }
+.tier__when--now { color: var(--deep); }
+.tier .button { margin-top: 1.75rem; }
+
+/* The arrival: the glass once more, with the seam. */
+.close { position: relative; padding: var(--gap) 0 clamp(6rem, 12vw, 10rem); }
+.close__lens { left: 44%; top: -2rem; width: calc(56% + 16rem); height: 44rem; }
+.close__glass { z-index: -1; left: 60%; top: 5.5rem; width: 33rem; height: 26rem; --r: 12rem 12rem 3rem 12rem; }
+.close h2 { max-width: 15ch; margin-bottom: 2.5rem; }
+
+.foot { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.75rem 2.5rem; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--soft); }
+.foot .brand { color: var(--ink); font-size: 1.0625rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .form, .seam, .demo .caret { animation: none !important; }
+  .lens, .glass, .seam { transition: none !important; }
+  .ui *, .button { transition: none !important; }
+}
+
+/* Narrow: one column. The illustration is laid out again, not shrunk, and the
+   glass is placed from the foot of the hero so it stays around the window and
+   never under the opening text. */
+@media (max-width: 900px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); padding-inline: var(--pad); gap: 3.5rem; }
+  .hero__copy { padding-bottom: 0; }
+  .form--1 { left: 44%; top: auto; bottom: 34rem; width: 16rem; height: 11rem; --r: 5.5rem 5.5rem 5.5rem 1.5rem; }
+  .form--2 { left: -5rem; top: auto; bottom: 15rem; width: 17rem; height: 16rem; --r: 6rem 1.5rem 6rem 6rem; }
+  .form--3 { left: 30%; top: auto; bottom: 1rem; width: 19rem; height: 14rem; --r: 6rem 6rem 2rem 6rem; }
+  .seam { left: auto; right: -1.5rem; top: auto; bottom: 34rem; width: 9rem; }
+  .demo .win { width: 100%; height: 21.5rem; }
+  .demo .side { display: none; }
+  .demo .pane { padding-left: 12px; }
+  .demo .sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px; gap: 10px; }
+  .demo .tile--wide { grid-column: span 1; }
+  .demo .tile--wide .line b:last-child { display: none; }
+  .demo .row2 { overflow: hidden; padding: 1px; margin: -1px; }
+  .demo .tile--new { inset: 1px; width: auto; }
+  .demo[data-card] .tile--fill { margin-left: calc(100% + 10px); }
+  .demo .ask { position: relative; left: auto; bottom: auto; margin: -0.625rem 0 0 1rem; width: min(100% - 2rem, 17rem); }
+  .demo .stages { position: relative; left: auto; bottom: auto; display: inline-block; margin: 0.75rem 0 0 1rem; }
+  .demo figcaption { margin-top: 1.25rem; padding-left: 1rem; }
+  .one, .pair, .steps, .path__foot { grid-template-columns: minmax(0, 1fr); }
+  .steps { gap: 3.5rem; }
+  .steps li:nth-child(n) { --d: 0s; }
+  .path__foot .note { grid-column: auto; }
+  .yours h2, .yours .pair { margin-left: 0; }
+  .one__lens { left: 30%; top: -18rem; width: 30rem; height: 20rem; }
+  .yours__lens, .yours__glass { display: none; } /* no room beside the text; one form fewer */
+  .close__lens { left: 20%; top: -11rem; width: 30rem; height: 32rem; }
+  .one__glass { left: auto; right: -11.5rem; top: -9.5rem; width: 16rem; height: 13rem; --r: 5.5rem 5.5rem 5.5rem 1.5rem; }
+  .yours__glass { right: auto; left: -11.5rem; top: -6rem; width: 15rem; height: 12rem; --r: 5rem 1.5rem 5rem 5rem; }
+  .close__glass { left: 46%; top: -1.5rem; width: 19rem; height: 15rem; --r: 6.5rem 6.5rem 2rem 6.5rem; }
+}
