@@ -19,5 +19,5 @@ then open http://localhost:4173.
 ## Hosting
 
 Hosting via GitHub Pages is planned but not enabled. All asset paths are relative, so the page also
-works under a subpath such as `/tamari-page/`. Before launch, check `brand.js`: the contact link is a
-placeholder (`hello@example.com`).
+works under a subpath such as `/tamari-page/`.
+The contact buttons open `info@sunseekerlabs.dk` (`contactUrl` in `brand.js`).
