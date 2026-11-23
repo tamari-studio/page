@@ -21,3 +21,8 @@ then open http://localhost:4173.
 Live at https://westsoever.github.io/tamari-page/ (GitHub Pages, from `main`, root folder). Every
 push to `main` publishes. All asset paths are relative, so the page works under that subpath.
 The contact buttons open `info@sunseekerlabs.dk` (`contactUrl` in `brand.js`).
+
+## llms.txt
+
+`llms.txt` tells coding agents what Tamari is and how to set it up with `tamari init` (the CLI is
+still named `miso` today; the rename follows). The footer links to it. Keep it in step with the CLI.

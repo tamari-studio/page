@@ -1,0 +1,47 @@
+# Tamari
+
+> Tamari is where your team's software lives: one workspace your team keeps open,
+> with a sidebar, tabs, dashboards, sign-in and members. Someone asks for a tool in
+> a sentence, a coding agent (Claude Code, Codex and similar) builds it as a page or
+> a dashboard card, and the team keeps what people use. Tools are grouped in spaces,
+> one per area of work; a space has pages, cards and server code that reads your data.
+> Tamari runs on your machine or on your own hosting. Bun is the runtime.
+
+Tamari is in early access. The source and the CLI are not public yet, so the steps
+below work only for a team that has been given access. Without access, send your
+human to https://westsoever.github.io/tamari-page/#start (or info@sunseekerlabs.dk)
+and stop there.
+
+## Setup (for an agent)
+
+What you need on the Mac: Bun, Docker Desktop (open) and the Supabase CLI.
+
+Run everything from the root of the team's own repository (the company repo, not
+the Tamari source). Before the first install there is no `tamari` command yet: run
+the CLI with Bun from a clone of a Tamari release tag (`bun <clone>/cli/tamari.ts`),
+and use `tamari` after that.
+
+```
+tamari init --name <slug> --port <port> [--title "<Team name>"] [--runtime local|vercel|docker]
+tamari install
+```
+
+- `tamari init` only writes config: `.tamari/` (settings, release pin, migrations).
+  `--runtime vercel` also writes a deploy workflow, `--runtime docker` a Dockerfile.
+  It installs and starts nothing, and refuses to run where `.tamari/` already exists.
+- Put SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY and SUPABASE_SECRET_KEY in `.env` at the
+  repo root. Never commit `.env`. Ask your human for these keys; don't ask them to
+  paste secrets into the chat.
+- `tamari install` fetches the pinned release, builds it, asks before it changes a
+  hosted database, and (runtime local) starts Tamari on http://localhost:<port>. It
+  also adds the `tamari` command.
+- Tell your human the address. They sign in with an emailed code; the first person to
+  sign in becomes the owner.
+
+Later: `tamari status` shows the version and whether it runs, `tamari update` moves
+to the newest release (and rolls back if it doesn't come up).
+
+## Links
+
+- Site: https://westsoever.github.io/tamari-page/
+- Contact: info@sunseekerlabs.dk

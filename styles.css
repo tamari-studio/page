@@ -334,6 +334,7 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 
 .foot { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.75rem 2.5rem; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--soft); }
 .foot .brand { color: var(--ink); font-size: 1.0625rem; }
+.foot__agents { color: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; text-underline-offset: 0.2em; }
 
 @media (prefers-reduced-motion: reduce) {
   .form, .seam, .demo .caret { animation: none !important; }
