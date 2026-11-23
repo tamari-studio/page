@@ -1,9 +1,9 @@
 // Everything brand-dependent lives in this file: name, tagline, mark, colours and
-// the contact link. A rename is a change here and nowhere else; no other file
-// contains the name.
-// Preview: `python3 -m http.server 4173 --directory site`, then http://localhost:4173
-// shortcut: the name and title are filled in by this script, so link previews and
-// crawlers that run no JavaScript see no name. Render it at build time before launch.
+// the contact link. index.html also carries the name and tagline as plain text, so
+// link previews and crawlers that run no JavaScript see them. A rename is a change
+// here plus a find-and-replace in index.html; this script warns in the console when
+// the two differ.
+// Preview: `python3 -m http.server 4173`, then http://localhost:4173
 
 const BRAND = {
   name: 'Tamari', // chosen 2026-11-23; written with a capital T, also as the wordmark
@@ -64,7 +64,9 @@ const BRAND = {
   root.style.setProperty('--display-tracking', display.tracking)
   root.style.setProperty('--display-leading', display.leading)
   root.style.setProperty('--font-text', BRAND.text)
-  document.title = `${BRAND.name}: ${BRAND.tagline}`
+  const title = `${BRAND.name}: ${BRAND.tagline}`
+  if (document.title !== title) console.warn(`index.html says "${document.title}", brand.js says "${title}". Update index.html.`)
+  document.title = title
   // index.html preloads the default headline face; a face picked with ?type is preloaded here.
   if (!document.querySelector(`link[rel="preload"][href="${display.file}"]`)) document.head.insertAdjacentHTML('beforeend', `<link rel="preload" href="${display.file}" as="font" type="font/woff2" crossorigin>`)
 
