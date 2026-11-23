@@ -18,6 +18,6 @@ then open http://localhost:4173.
 
 ## Hosting
 
-Hosting via GitHub Pages is planned but not enabled. All asset paths are relative, so the page also
-works under a subpath such as `/tamari-page/`.
+Live at https://westsoever.github.io/tamari-page/ (GitHub Pages, from `main`, root folder). Every
+push to `main` publishes. All asset paths are relative, so the page works under that subpath.
 The contact buttons open `info@sunseekerlabs.dk` (`contactUrl` in `brand.js`).
