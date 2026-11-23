@@ -2,9 +2,10 @@
    --ink, --soft, --line, --mist, --sky, --core, --deep, --prism-1..4,
    --font-display, --font-text, --display-*). Nothing here depends on the name. */
 
-@font-face { font-family: 'Brand Display'; src: url('fonts/display.woff2') format('woff2'); font-weight: 300 500; font-display: swap; }
-@font-face { font-family: 'Brand Display Geist'; src: url('fonts/display-geist.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Brand Text'; src: url('fonts/text.woff2') format('woff2'); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'Brand Display'; src: url('fonts/zen-light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Brand Display'; src: url('fonts/zen-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Brand Display'; src: url('fonts/zen-medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Brand Text'; src: url('fonts/mplus1.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
 
 :root {
   --font-ui: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; /* the app's own face, for the illustrations */
@@ -153,7 +154,7 @@ a { color: inherit; }
 .ui .nav { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; border-radius: 8px; color: #6b6b6b; }
 .ui .nav--on { background: #fff; color: #0a0a0a; font-weight: 500; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06), 0 2px 4px rgb(0 0 0 / 0.04); }
 .ui .tabs { display: flex; align-items: flex-end; gap: 2px; height: 40px; flex: none; }
-.ui .tab { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 10px 10px 0 0; color: #6b6b6b; }
+.ui .tab { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; white-space: nowrap; border-radius: 10px 10px 0 0; color: #6b6b6b; }
 .ui .tab--on { background: #fff; color: #0a0a0a; }
 .ui .tab--plus { padding: 0 8px; }
 .ui .tile { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 14px 16px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08); }
@@ -293,13 +294,13 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 .scene .usage svg { margin-right: 4px; }
 .scene .usage .roll { color: #0a0a0a; font-weight: 600; }
 
-.scene .seg { --some: 9.4rem; --all: 4.8rem; position: relative; display: grid; grid-template-columns: var(--some) var(--all); margin-left: auto; padding: 3px; border-radius: 999px; background: #f0f0f0; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05); font-size: 12.5px; font-weight: 400; white-space: nowrap; }
+.scene .seg { --a: 3.6rem; --b: 3.6rem; --c: 5rem; position: relative; display: grid; grid-template-columns: var(--a) var(--b) var(--c); margin-left: auto; padding: 3px; border-radius: 999px; background: #f0f0f0; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05); font-size: 12.5px; font-weight: 400; white-space: nowrap; }
 .scene .seg span:not(.seg__pill) { position: relative; padding: 5px 0; text-align: center; color: #6b6b6b; transition: color 0.5s var(--travel) calc(var(--d, 0s) + 0.75s); }
 .scene .seg span:last-child { color: #0a0a0a; }
-.scene .seg__pill { position: absolute; top: 3px; bottom: 3px; left: 3px; width: var(--all); border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); transform: translateX(var(--some)); transition: transform 0.9s var(--travel) calc(var(--d, 0s) + 0.6s), width 0.9s var(--travel) calc(var(--d, 0s) + 0.6s); }
-.scene[data-wait] .seg__pill { width: var(--some); transform: none; }
+.scene .seg__pill { position: absolute; top: 3px; bottom: 3px; left: 3px; width: var(--c); border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); transform: translateX(calc(var(--a) + var(--b))); transition: transform 0.9s var(--travel) calc(var(--d, 0s) + 0.6s), width 0.9s var(--travel) calc(var(--d, 0s) + 0.6s); }
+.scene[data-wait] .seg__pill { width: var(--b); transform: translateX(var(--a)); }
 .scene[data-wait] .seg span:last-child { color: #6b6b6b; }
-.scene[data-wait] .seg span:nth-child(2) { color: #0a0a0a; }
+.scene[data-wait] .seg span:nth-child(3) { color: #0a0a0a; }
 .scene .people { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .scene .who { padding: 10px 8px 0; border-radius: 12px 12px 0 0; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.07); overflow: hidden; }
 .scene .who__head { display: flex; align-items: center; gap: 8px; height: 26px; margin-bottom: 6px; padding: 0 6px; font-size: 12.5px; color: #6b6b6b; }
@@ -343,6 +344,12 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 /* Narrow: one column. The illustration is laid out again, not shrunk, and the
    glass is placed from the foot of the hero so it stays around the window and
    never under the opening text. */
+/* Three columns of scenes between tablet and wide desktop: the Share control gets compact. */
+@media (min-width: 901px) and (max-width: 1240px) {
+  .scene .seg { --a: 2.9rem; --b: 2.9rem; --c: 4.1rem; font-size: 11.5px; }
+  .scene--share .space { gap: 6px; }
+}
+
 @media (max-width: 900px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr); padding-inline: var(--pad); gap: 3.5rem; }
   .hero__copy { padding-bottom: 0; }

@@ -6,8 +6,8 @@
   <title>One place for the software your team builds</title>
   <meta name="description" data-brand="description" content="One place for the software your team builds.">
   <link rel="icon" data-brand="icon" href="data:,">
-  <link rel="preload" href="fonts/text.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/mplus1.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/zen-light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <!-- brand.js holds the name, tagline, mark, colours, typefaces and contact link. -->
   <script src="brand.js"></script>
@@ -77,7 +77,7 @@
 
         <!-- The markup is the finished frame. demo.js plays the loop from the start. -->
         <figure class="demo" data-ask data-done data-card data-stage="everyone">
-          <div class="ui demo__stage" role="img" aria-label="Illustration. Someone asks a coding agent for a card showing tickets sold per week. The card appears on the dashboard of the Events space. The space is seen by its owners and one person, then by the Events department as well, and then it is opened to everyone.">
+          <div class="ui demo__stage" role="img" aria-label="Illustration. Someone asks a coding agent for a card showing tickets sold per week. The card appears on the dashboard of the Events space. The space starts as a draft only its maker sees, moves to the Events team, and then to everyone.">
             <div class="win" aria-hidden="true">
               <div class="win__bar"><i></i><i></i><i></i></div>
               <div class="win__body">
@@ -140,15 +140,16 @@
             </div>
 
             <div class="stages" aria-hidden="true">
-              <!-- The app's own words: the two choices under People & access, Spaces, and its "Seen by" line. -->
+              <!-- The three stages a space moves through. The labels are planned; the app shows "Seen by" today. -->
               <div class="stages__track">
-                <span data-pick="some">Only the people I pick</span>
-                <span data-pick="all">Everyone</span>
-                <div class="stages__on"><span>Only the people I pick</span><span>Everyone</span></div>
+                <span data-pick="draft">Draft</span>
+                <span data-pick="team">Team</span>
+                <span data-pick="everyone">Everyone</span>
+                <div class="stages__on"><span>Draft</span><span>Team</span><span>Everyone</span></div>
               </div>
               <div class="stages__seen">
-                <span data-seen="draft">Seen by: Owners and 1 person</span>
-                <span data-seen="team">Seen by: Owners and Events</span>
+                <span data-seen="draft">Seen by: you</span>
+                <span data-seen="team">Seen by: the Events team</span>
                 <span data-seen="everyone">Seen by: Everyone</span>
               </div>
             </div>
@@ -202,9 +203,9 @@
           </li>
           <li>
             <figure class="scene scene--shape">
-              <div class="ui scene__stage" role="img" aria-label="Illustration: a space called Events, seen by its owners and the Events department. Its card is adjusted, and a line below reads: opened by 6 people this week.">
+              <div class="ui scene__stage" role="img" aria-label="Illustration: a space called Events, at the Team stage. Its card is adjusted, and a line below reads: opened by 6 people this week.">
                 <div class="scene__in" aria-hidden="true">
-                  <div class="space"><svg><use href="#i-calendar"/></svg>Events<span class="badge">Seen by: Owners and Events</span></div>
+                  <div class="space"><svg><use href="#i-calendar"/></svg>Events<span class="badge">Team</span></div>
                   <div class="tile">
                     <div class="tile__title">Sales per week</div>
                     <div class="bars bars--adjust">
@@ -221,10 +222,10 @@
           </li>
           <li>
             <figure class="scene scene--share">
-              <div class="ui scene__stage" role="img" aria-label="Illustration: who sees the Events space is changed from Only the people I pick to Everyone, and it appears in the sidebars of two other people, Mia and Jonas.">
+              <div class="ui scene__stage" role="img" aria-label="Illustration: the Events space moves from Team to Everyone, and it appears in the sidebars of two other people, Mia and Jonas.">
                 <div class="scene__in" aria-hidden="true">
                   <div class="space"><svg><use href="#i-calendar"/></svg>Events
-                    <span class="seg"><span class="seg__pill"></span><span>Only the people I pick</span><span>Everyone</span></span>
+                    <span class="seg"><span class="seg__pill"></span><span>Draft</span><span>Team</span><span>Everyone</span></span>
                   </div>
                   <div class="people">
                     <div class="who">
@@ -256,7 +257,8 @@
           </p>
           <p class="note">
             The three pictures are illustrations. Today you move a space along by changing who can
-            see it. Ready-made spaces to copy, and one-step promote and retire, are planned.
+            see it. The Draft, Team and Everyone stages, ready-made spaces to copy, and one-step
+            promote and retire are planned.
           </p>
         </div>
       </section>
@@ -316,7 +318,6 @@
       <span class="brand__mark" data-brand="mark"></span>
       <span data-brand="name"></span>
     </span>
-    <span>A working name.</span>
   </footer>
 
   <script src="demo.js"></script>

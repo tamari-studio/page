@@ -22,7 +22,7 @@
 
   // The highlight is measured from the label it sits on, never hard-coded.
   function placePill() {
-    const on = demo.querySelector(`[data-pick="${demo.dataset.stage === 'everyone' ? 'all' : 'some'}"]`)
+    const on = demo.querySelector(`[data-pick="${demo.dataset.stage || 'draft'}"]`)
     chosen.style.clipPath = `inset(0 ${track.offsetWidth - on.offsetLeft - on.offsetWidth}px 0 ${on.offsetLeft}px round 13px)`
   }
 

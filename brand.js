@@ -6,7 +6,7 @@
 // crawlers that run no JavaScript see no name. Render it at build time before launch.
 
 const BRAND = {
-  name: 'miso', // working name
+  name: 'Tamari', // chosen 2026-11-23; written with a capital T, also as the wordmark
   tagline: 'Where your team’s software lives.',
 
   // Placeholder. Put the real address here; nothing else needs to change. Each
@@ -18,15 +18,14 @@ const BRAND = {
   // licence texts; styles.css loads the files under the family names used here.
   // To change a face, replace its file and tune its numbers below.
   //
-  // Headline candidates. `type` picks the default; ?type=geist or ?type=soft
-  // previews the other. Each is tuned on its own terms: `scale` multiplies every
-  // headline size, `tracking` and `leading` are for the largest size.
-  type: 'soft',
+  // Headlines: Zen Kaku Gothic New, Light. Text: M PLUS 1 (variable weight).
+  // To swap the two roles, swap the family names here and the preload in index.html.
+  // `scale` multiplies every headline size; `tracking` and `leading` are for the largest size.
+  type: 'zen',
   display: {
-    soft: { family: "'Brand Display', 'Iowan Old Style', Georgia, serif", file: 'fonts/display.woff2', weight: 300, scale: 1, tracking: '-0.022em', leading: 0.98 }, // Newsreader Display
-    geist: { family: "'Brand Display Geist', Georgia, serif", file: 'fonts/display-geist.woff2', weight: 400, scale: 0.84, tracking: '-0.012em', leading: 1.04 }, // Geist Serif Regular
+    zen: { family: "'Brand Display', ui-sans-serif, system-ui, sans-serif", file: 'fonts/zen-light.woff2', weight: 300, scale: 0.9, tracking: '-0.03em', leading: 1.08 }, // Zen Kaku Gothic New
   },
-  text: "'Brand Text', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif", // Source Sans 3
+  text: "'Brand Text', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif", // M PLUS 1
 
   // Optional. Three stacked forms, each with one tight corner, as in the art.
   // One solid colour, so it reads at 16px. Set to '' for the wordmark alone.
