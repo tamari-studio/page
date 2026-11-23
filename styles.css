@@ -47,8 +47,26 @@ a { color: inherit; }
 .skip { position: absolute; left: 1rem; top: -4rem; z-index: 5; padding: 0.5rem 0.9rem; border-radius: 8px; background: var(--ink); color: var(--paper); }
 .skip:focus { top: 1rem; }
 
-/* Top bar */
-.top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.5rem; }
+/* Top bar. Flat over the hero; once the page scrolls (.is-stuck, set in index.html) it sticks
+   and splits into three pieces of frosted glass: the mark alone, the section links, the button. */
+.top { position: sticky; top: 0; z-index: 10; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding-block: 1.5rem; transition: padding-block 0.45s var(--travel); }
+.top > .button { justify-self: end; }
+.top .brand { justify-self: start; margin: -0.55rem; padding: 0.55rem; border-radius: 0.9rem; }
+.top__nav { display: flex; gap: 0.125rem; padding: 0.25rem; border-radius: 999px; }
+.top__nav a { padding: 0.4rem 0.95rem; border-radius: 999px; font-size: 0.9375rem; font-weight: 500; text-decoration: none; transition: background-color 0.2s var(--out); }
+.top__nav a:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.top :is(.brand, .top__nav) { transition: background-color 0.45s var(--travel), box-shadow 0.45s var(--travel), gap 0.45s var(--travel); }
+.brand__name { max-width: 6em; overflow: hidden; white-space: nowrap; transition: max-width 0.45s var(--travel), opacity 0.3s var(--travel); }
+.top.is-stuck { padding-block: 0.75rem; }
+.top.is-stuck .brand { gap: 0; }
+.top.is-stuck .brand__name { max-width: 0; opacity: 0; }
+.top.is-stuck :is(.brand, .top__nav) {
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85), inset 0 0 0 1px color-mix(in srgb, var(--ink) 7%, transparent), 0 0.75rem 1.75rem -1rem color-mix(in srgb, var(--deep) 45%, transparent);
+}
+html[data-motion] { scroll-behavior: smooth; }
+main [id] { scroll-margin-top: 7rem; } /* a jump lands below the floating bar */
 .brand { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
 .brand__mark { display: inline-flex; width: 1.375rem; height: 1.375rem; }
 .brand__mark:empty { display: none; }
@@ -345,7 +363,15 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 @media (prefers-reduced-motion: reduce) {
   .form, .seam, .demo .caret { animation: none !important; }
   .lens, .glass, .seam { transition: none !important; }
-  .ui *, .button { transition: none !important; }
+  .ui *, .button, .top, .top * { transition: none !important; }
+}
+
+/* Phones: the mark stands for the name, so the links and the button fit on one line. */
+@media (max-width: 34rem) {
+  .top { gap: 0.5rem; }
+  .top .brand__name { display: none; }
+  .top .brand { gap: 0; }
+  .top__nav a { padding-inline: 0.6rem; }
 }
 
 /* Narrow: one column. The illustration is laid out again, not shrunk, and the

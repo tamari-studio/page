@@ -50,10 +50,17 @@
   <header class="top wrap">
     <a class="brand" href="#main">
       <span class="brand__mark" data-brand="mark"></span>
-      <span data-brand="name">Tamari</span>
+      <span class="brand__name" data-brand="name">Tamari</span>
     </a>
+    <!-- Sections of this one page for now; these become pages later. -->
+    <nav class="top__nav" aria-label="Sections">
+      <a href="#product">Product</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
     <a class="button button--small" data-brand="contact" data-subject="Waitlist" href="#start">Join the waitlist</a>
   </header>
+  <!-- Once the page scrolls, the top bar floats as glass (styles.css, "Top bar"). -->
+  <script>{ const top = document.querySelector('.top'); const set = () => top.classList.toggle('is-stuck', scrollY > 8); addEventListener('scroll', set, { passive: true }); set() }</script>
 
   <main id="main">
     <section class="hero">
@@ -165,7 +172,7 @@
     </section>
 
     <div class="flow">
-      <section class="one wrap" aria-labelledby="one-title">
+      <section class="one wrap" id="product" aria-labelledby="one-title">
         <canvas class="lens one__lens" data-lens="one" aria-hidden="true"></canvas>
         <div class="glass glass--quiet one__glass" aria-hidden="true"></div>
         <h2 id="one-title">Your team’s side projects deserve a home.</h2>
