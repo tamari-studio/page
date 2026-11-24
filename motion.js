@@ -46,6 +46,7 @@
     let top = 0
 
     function layout() {
+      const was = pinned
       path.classList.add('is-pinned') // measured as it will be laid out pinned
       const h = stage.offsetHeight
       top = Math.max(88, (innerHeight - h) / 2) // below the floating top bar
@@ -53,8 +54,10 @@
       if (!pinned) {
         path.classList.remove('is-pinned')
         pin.style.height = ''
-        // Unpinned, the scenes play as they come into view; release any still waiting here.
-        for (const li of steps) delete li.querySelector('.scene').dataset.wait
+        // Unpinned, demo.js plays the scenes as they come into view. Only when the
+        // page was pinned a moment ago (a resize) are the waiting ones let go here,
+        // as demo.js passed them over while they were pinned.
+        if (was) for (const li of steps) delete li.querySelector('.scene').dataset.wait
         return
       }
       travel = Math.round(innerHeight * 1.2)
