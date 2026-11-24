@@ -12,8 +12,8 @@
 //
 // Cost: one WebGL context for the whole page, off the main thread; frames only
 // for canvases on screen, about ten a second (the drift is under a tenth of a
-// pixel a frame, so more would look the same), at the screen's rate only while
-// the scroll moves the forms apart or together; device pixel ratio capped; and
+// pixel a frame, so more would look the same), up to thirty only while the
+// scroll moves the forms apart or together; device pixel ratio capped; and
 // nothing at all while the tab is hidden or no canvas is on screen. Reduced
 // motion: one still frame.
 
@@ -390,15 +390,22 @@ void main() {
     })
     document.fonts?.ready.then(again)
 
+    // The easing moves every frame, but the shader is asked for at most 30 frames a
+    // second: the forms are soft, and a full-rate redraw of the hero can take the
+    // GPU time the rest of the page (the top bar's slide) needs to stay smooth.
+    const GLIDE_MS = 1000 / 30
     let gliding = false
-    function glide() {
+    let drawn = 0
+    function glide(now) {
       gliding = false
+      const paint = now - drawn >= GLIDE_MS
+      if (paint) drawn = now
       for (const lens of lenses) {
         if (!lens.view) continue
         const to = goal(lens)
         lens.part = Math.abs(to - lens.part) < 0.002 ? to : lens.part + (to - lens.part) * 0.2
         if (lens.part !== to) gliding = true
-        if (lens.seen) draw(lens)
+        if (lens.seen && (paint || !gliding)) draw(lens)
       }
       if (gliding) requestAnimationFrame(glide)
     }

@@ -13,9 +13,12 @@
   <link rel="icon" data-brand="icon" href="data:,">
   <link rel="preload" href="fonts/mplus1.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/zen-light.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+  <!-- ?v= on every stylesheet and script: browsers keep each file up to 10 minutes (GitHub Pages),
+       so a deploy could otherwise mix a new script with an old stylesheet. Change it with every
+       release (the same value everywhere: sed -i '' 's/?v=[0-9][0-9-]*/?v=NEW/g' index.html). -->
+  <link rel="stylesheet" href="styles.css?v=20261124-3">
   <!-- brand.js holds the name, tagline, mark, colours, typefaces and contact link. -->
-  <script src="brand.js"></script>
+  <script src="brand.js?v=20261124-3"></script>
   <!-- Marks that motion is wanted, before anything is painted (see styles.css). -->
   <script>matchMedia('(prefers-reduced-motion: reduce)').matches || (document.documentElement.dataset.motion = '')</script>
 </head>
@@ -60,7 +63,7 @@
     <a class="button button--small" data-brand="contact" data-subject="Waitlist" href="#start">Join the waitlist</a>
   </header>
   <!-- Gathers the top bar into a pill once the page scrolls (top.js, styles.css "Top bar"). -->
-  <script src="top.js"></script>
+  <script src="top.js?v=20261124-3"></script>
 
   <main id="main">
     <section class="hero" data-drift="0">
@@ -376,8 +379,8 @@
     <a class="foot__agents" href="llms.txt">Are you an agent? Read llms.txt</a>
   </footer>
 
-  <script src="demo.js"></script>
-  <script src="motion.js"></script>
-  <script src="glass.js"></script>
+  <script src="demo.js?v=20261124-3"></script>
+  <script src="motion.js?v=20261124-3"></script>
+  <script src="glass.js?v=20261124-3"></script>
 </body>
 </html>
