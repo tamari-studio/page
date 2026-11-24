@@ -63,7 +63,7 @@
   <script>{ const top = document.querySelector('.top'); const set = () => top.classList.toggle('is-stuck', scrollY > 8); addEventListener('scroll', set, { passive: true }); set() }</script>
 
   <main id="main">
-    <section class="hero">
+    <section class="hero" data-drift="0">
       <!-- The glass. glass.js draws it into the canvas; the CSS forms after it are
            what paints first, and what stays where WebGL is missing. -->
       <div class="art" aria-hidden="true">
@@ -172,7 +172,7 @@
     </section>
 
     <div class="flow">
-      <section class="one wrap" id="product" aria-labelledby="one-title">
+      <section class="one wrap" id="product" aria-labelledby="one-title" data-drift="0.1">
         <canvas class="lens one__lens" data-lens="one" aria-hidden="true"></canvas>
         <div class="glass glass--quiet one__glass" aria-hidden="true"></div>
         <h2 id="one-title">Your team’s side projects deserve a home.</h2>
@@ -188,7 +188,10 @@
         </div>
       </section>
 
-      <section class="path wrap" aria-labelledby="path-title">
+      <section class="path wrap" aria-labelledby="path-title" data-drift="0.6">
+        <!-- On wide screens motion.js holds the stage still while the scroll walks through
+             the three steps; .path__pin is the room it travels in. Otherwise plain flow. -->
+        <div class="path__pin"><div class="path__stage">
         <h2 id="path-title">Ship the tool, not the infrastructure.</h2>
         <ol class="steps">
           <li>
@@ -262,6 +265,7 @@
             <p>What people keep using is opened to everyone. The rest is retired.</p>
           </li>
         </ol>
+        </div></div>
         <div class="path__foot">
           <p class="shuhari">
             <span lang="ja">守破離</span> Shuhari: follow the form, break the form, leave the form. An old
@@ -275,7 +279,7 @@
         </div>
       </section>
 
-      <section class="yours wrap" aria-labelledby="yours-title">
+      <section class="yours wrap" aria-labelledby="yours-title" data-drift="0.25">
         <canvas class="lens yours__lens" data-lens="yours" aria-hidden="true"></canvas>
         <div class="glass glass--quiet yours__glass" aria-hidden="true"></div>
         <h2 id="yours-title">Tools outlive the person who built them.</h2>
@@ -302,7 +306,7 @@
            person, with a per-organisation minimum that covers the org's own database and hosting
            (its own Supabase project, about $10 a month compute on top of the Supabase plan), no AI
            markup, and own hosting priced per deal. -->
-      <section class="price wrap" id="pricing" aria-labelledby="price-title">
+      <section class="price wrap" id="pricing" aria-labelledby="price-title" data-drift="0.05">
         <h2 id="price-title">Stop paying for ten small apps. Build the three you need.</h2>
         <p class="price__lede">
           Pay for the people who use it. Every organisation gets its own copy and its own database. The minimum covers running them.
@@ -333,7 +337,7 @@
         </p>
       </section>
 
-      <section class="start wrap" id="start" aria-labelledby="start-title">
+      <section class="start wrap" id="start" aria-labelledby="start-title" data-drift="0.05">
         <h2 id="start-title">Two ways to start.</h2>
         <p class="start__for">For teams of 20 to 100 where someone already builds tools with a coding agent.</p>
         <div class="pair">
@@ -353,7 +357,7 @@
       </section>
     </div>
 
-    <section class="close wrap" aria-labelledby="close-title">
+    <section class="close wrap" aria-labelledby="close-title" data-drift="0.8">
       <canvas class="lens close__lens" data-lens="close" aria-hidden="true"></canvas>
       <div class="glass close__glass" aria-hidden="true"></div>
       <h2 id="close-title">Start with the tool your team keeps asking for.</h2>
@@ -370,6 +374,7 @@
   </footer>
 
   <script src="demo.js"></script>
+  <script src="motion.js"></script>
   <script src="glass.js"></script>
 </body>
 </html>

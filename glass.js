@@ -12,7 +12,8 @@
 //
 // Cost: one WebGL context for the whole page, off the main thread; frames only
 // for canvases on screen, about ten a second (the drift is under a tenth of a
-// pixel a frame, so more would look the same); device pixel ratio capped; and
+// pixel a frame, so more would look the same), at the screen's rate only while
+// the scroll moves the forms apart or together; device pixel ratio capped; and
 // nothing at all while the tab is hidden or no canvas is on screen. Reduced
 // motion: one still frame.
 
@@ -25,6 +26,7 @@ uniform float u_px;     // device px per CSS px
 uniform vec4 u_view;    // where the art's origin sits (CSS px), its scale, and 1 or -1 to mirror it
 uniform vec4 u_look;    // seam strength, 1 = hero field / 0 = floating on the page, tilt (radians), depth of colour
 uniform float u_time;
+uniform float u_part;   // 0 = the forms rest in the fold, 1 = drawn apart (the scroll, see below)
 uniform vec3 c_ground, c_mist, c_sky, c_core, c_deep;
 uniform vec3 u_prism[6];
 
@@ -39,13 +41,14 @@ vec2 turn(vec2 p, float a) { float c = cos(a), s = sin(a); return vec2(c * p.x +
 
 // The three forms, in art units (CSS px at scale 1). A hangs from above, B is
 // the body with the saturated shoulder, C leans across B from below. Each
-// drifts a few px on its own slow clock.
+// drifts a few px on its own slow clock, and the scroll draws the three apart
+// (A up and out, B down and in, C down and out), so the seam goes out as they part.
 vec2 sway(float k) { return vec2(sin(u_time * .11 + k * 2.1), cos(u_time * .083 + k * 1.3)) * 5.; }
-float formA(vec2 p) { p -= sway(1.); return box(p - vec2(-140., -420.), vec2(470., 380.), vec4(96., 96., 96., 96.)); }
-float formB(vec2 p) { p -= sway(2.); return box(p - vec2(84., 420.), vec2(250., 452.), vec4(60., 96., 60., 150.)); }
+float formA(vec2 p) { p -= sway(1.) + u_part * vec2(-60., -110.); return box(p - vec2(-140., -420.), vec2(470., 380.), vec4(96., 96., 96., 96.)); }
+float formB(vec2 p) { p -= sway(2.) + u_part * vec2(50., 70.); return box(p - vec2(84., 420.), vec2(250., 452.), vec4(60., 96., 60., 150.)); }
 float smax(float a, float b, float k) { float h = max(k - abs(a - b), 0.) / k; return max(a, b) + h * h * k * .25; }
 float formC(vec2 p) {
-  p -= sway(3.);
+  p -= sway(3.) + u_part * vec2(-110., 90.);
   float top = dot(p - vec2(-60., 470.), vec2(.60, -.80)); // the long edge, falling to the right
   return smax(smax(-210. - p.x, top, 190.), p.x - 430., 260.);
 }
@@ -190,7 +193,7 @@ void main() {
     gl.enableVertexAttribArray(0)
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0)
     at = {}
-    for (const name of ['u_size', 'u_px', 'u_view', 'u_look', 'u_time', 'u_prism']) at[name] = gl.getUniformLocation(program, name)
+    for (const name of ['u_size', 'u_px', 'u_view', 'u_look', 'u_time', 'u_part', 'u_prism', 'c_ground']) at[name] = gl.getUniformLocation(program, name)
     for (const [name, value] of Object.entries(colors)) gl.uniform3fv(gl.getUniformLocation(program, `c_${name}`), value)
     gl.uniform3fv(at.u_prism, prism)
     canvas.addEventListener('webglcontextlost', () => {
@@ -203,7 +206,7 @@ void main() {
   onmessage = ({ data }) => {
     if (data.start) return postMessage({ ready: start(data.start) })
     if (!gl) return
-    const { id, w, h, px, x, y, scale, mirror, seam, hero, tilt, depth, time } = data
+    const { id, w, h, px, x, y, scale, mirror, seam, hero, tilt, depth, time, part, ground } = data
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w
       canvas.height = h
@@ -214,6 +217,8 @@ void main() {
     gl.uniform4f(at.u_view, x, y, scale, mirror)
     gl.uniform4f(at.u_look, seam, hero, tilt, depth)
     gl.uniform1f(at.u_time, time)
+    gl.uniform1f(at.u_part, part)
+    gl.uniform3fv(at.c_ground, ground)
     gl.drawArrays(gl.TRIANGLES, 0, 3)
     const bitmap = canvas.transferToImageBitmap()
     postMessage({ id, bitmap }, [bitmap])
@@ -227,7 +232,7 @@ void main() {
   const root = document.documentElement
   const ask = new URLSearchParams(location.search).get('glass')
   const still = matchMedia('(prefers-reduced-motion: reduce)')
-  const lenses = [...document.querySelectorAll('canvas.lens')].map((canvas) => ({ canvas, ctx: null, view: null, seen: false, busy: false }))
+  const lenses = [...document.querySelectorAll('canvas.lens')].map((canvas) => ({ canvas, ctx: null, view: null, seen: false, busy: false, part: 0 }))
 
   // Where the art sits in each canvas: x and y of its origin in CSS px, its
   // scale, mirror (1 or -1), seam, tilt and depth of colour. The origin is the
@@ -255,6 +260,31 @@ void main() {
     const orange = a.map((v, i) => (v + b[i]) / 2)
     const green = [Math.min(b[0], c[0]) * 0.9, Math.max(b[1], c[1]) * 0.98, (b[2] + c[2]) / 2]
     return [a, orange, b, green, c, d].flat()
+  }
+
+  // The scroll. Each glass below the hero folds together as it reaches the
+  // middle of the screen and comes apart as it leaves; the hero's opens as the
+  // page scrolls away from it; the closing one meets again, seam lit, at the
+  // foot of the page. Eased toward the scroll and drawn at the screen's rate
+  // while it moves, then back to ten frames a second.
+  const clamp = (v) => Math.min(1, Math.max(0, v))
+  const smooth = (t) => t * t * (3 - 2 * t)
+  function goal(lens) {
+    if (still.matches) return 0
+    const box = lens.canvas.getBoundingClientRect()
+    if (lens.canvas.dataset.lens === 'hero') return smooth(clamp(-box.top / (box.height * 0.85)))
+    const vh = innerHeight
+    const mid = box.top + box.height / 2
+    const end = mid - (root.scrollHeight - vh - scrollY) // where its middle will be at the foot of the page
+    return smooth(clamp(Math.abs(mid - Math.max(vh / 2, end)) / (vh * 0.75)))
+  }
+
+  // The page's ground as it drifts (motion.js sets --drift; styles.css mixes the same 50%).
+  const DRIFT = 0.5
+  let base = null
+  function ground() {
+    const d = parseFloat(root.style.getPropertyValue('--drift')) || 0
+    return base.ground.map((v, i) => v + (base.mist[i] - v) * d * DRIFT)
   }
 
   let worker = null
@@ -288,7 +318,7 @@ void main() {
   function draw(lens) {
     if (!worker || lens.busy || !lens.view) return
     lens.busy = true
-    worker.postMessage({ ...lens.view, time: clock })
+    worker.postMessage({ ...lens.view, time: clock, part: lens.part, ground: ground() })
   }
 
   function show({ id, bitmap }) {
@@ -336,6 +366,7 @@ void main() {
     const first = (lens) => {
       if (lens.view) return
       measure(lens)
+      lens.part = goal(lens) // where it already is, without gliding there
       draw(lens)
     }
     watch('300px', (lens, near) => near && first(lens))
@@ -357,6 +388,24 @@ void main() {
       pending = requestAnimationFrame(again)
     })
     document.fonts?.ready.then(again)
+
+    let gliding = false
+    function glide() {
+      gliding = false
+      for (const lens of lenses) {
+        if (!lens.view) continue
+        const to = goal(lens)
+        lens.part = Math.abs(to - lens.part) < 0.002 ? to : lens.part + (to - lens.part) * 0.2
+        if (lens.part !== to) gliding = true
+        if (lens.seen) draw(lens)
+      }
+      if (gliding) requestAnimationFrame(glide)
+    }
+    addEventListener('scroll', () => {
+      if (gliding || !worker || still.matches) return
+      gliding = true
+      requestAnimationFrame(glide)
+    }, { passive: true })
   }
 
   function boot() {
@@ -374,6 +423,7 @@ void main() {
     }
     const colors = {}
     for (const name of ['ground', 'mist', 'sky', 'core', 'deep']) colors[name] = color(`--${name}`)
+    base = { ground: colors.ground, mist: colors.mist }
     worker.postMessage({ start: { colors, prism: spectrum(), force: ask === 'shader' } })
   }
 

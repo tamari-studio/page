@@ -1,7 +1,8 @@
 // Plays the illustrations. index.html holds each one's finished frame, which is
 // what shows without JavaScript and with reduced motion. This script only adds
 // time: the hero loops calmly while it is on screen, and each of the three
-// scenes plays once when it scrolls into view, then rests.
+// scenes plays once when it scrolls into view, then rests (when the steps are
+// pinned, motion.js starts each scene instead).
 
 {
   const demo = document.querySelector('.demo')
@@ -96,9 +97,10 @@
     document.addEventListener('visibilitychange', sync)
 
     // The scenes wait on their first frame and play once, when mostly in view.
+    // While the steps are pinned (motion.js), each plays when the scroll reaches it instead.
     const once = new IntersectionObserver((entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue
+        if (!entry.isIntersecting || entry.target.closest('.is-pinned')) continue
         delete entry.target.dataset.wait
         once.unobserve(entry.target)
       }
