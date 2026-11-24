@@ -1,9 +1,11 @@
 // The scroll's part of the motion. index.html is the finished page and stays so
 // without JavaScript and with reduced motion; this script only adds:
 //   1. Reveal: below the hero, headings and text rise in once as they arrive.
-//   2. Pin: on wide screens the three steps hold still while the scroll walks
-//      through them. A hairline over each step fills with the scroll, and each
-//      scene plays when its step is reached. All text stays at full strength.
+//   2. Pin: on wide screens the three steps hold still for a while as the page
+//      scrolls past. The scenes play on their own clock once the stage has
+//      settled, one after the other, not tied to the scroll; scrolled away and
+//      back, they play again (reset while out of sight). Nothing in the stage
+//      moves with the scroll, so it stays calm.
 //   4. Drift: the page's ground leans toward the glass colour from one section
 //      to the next (data-drift on each section, 0 to 1). glass.js reads --drift
 //      too, so the shader's ground matches the page.
@@ -24,7 +26,8 @@
         reveal.unobserve(entry.target)
       }
     }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' })
-    const parts = '.one h2, .one__text, .path h2, .steps > li, .path__foot, .yours h2, .yours .pair > div, .price h2, .price__lede, .price .tier, .price__ai, .start h2, .start__for, .start .tier, .close h2, .close .button'
+    // Not the steps: their stage is pinned, and anything rising in there reads as jitter.
+    const parts = '.one h2, .one__text, .yours h2, .yours .pair > div, .price h2, .price__lede, .price__plate, .price__ai, .start h2, .start__for, .start .tier, .close h2, .close .button'
     const count = new Map()
     for (const el of document.querySelectorAll(parts)) {
       const section = el.closest('section')
@@ -39,9 +42,9 @@
     const path = document.querySelector('.path')
     const pin = path.querySelector('.path__pin')
     const stage = path.querySelector('.path__stage')
-    const steps = [...path.querySelectorAll('.steps > li')]
-    const AT = [0, 0.34, 0.68] // where on the pinned travel each step is reached
+    const scenes = [...path.querySelectorAll('.scene')]
     let pinned = false
+    let played = false
     let travel = 0
     let top = 0
 
@@ -57,7 +60,7 @@
         // Unpinned, demo.js plays the scenes as they come into view. Only when the
         // page was pinned a moment ago (a resize) are the waiting ones let go here,
         // as demo.js passed them over while they were pinned.
-        if (was) for (const li of steps) delete li.querySelector('.scene').dataset.wait
+        if (was) for (const scene of scenes) delete scene.dataset.wait
         return
       }
       travel = Math.round(innerHeight * 1.2)
@@ -67,12 +70,16 @@
 
     function pinUpdate() {
       if (!pinned) return
-      const p = clamp((top - pin.getBoundingClientRect().top) / travel)
-      steps.forEach((li, k) => {
-        const to = AT[k + 1] ?? 1
-        li.style.setProperty('--fill', clamp((p - AT[k]) / (to - AT[k])).toFixed(3))
-        if (p >= AT[k] && pin.getBoundingClientRect().top <= top + 1) delete li.querySelector('.scene').dataset.wait
-      })
+      const box = pin.getBoundingClientRect()
+      const settled = box.top <= top + 1 && box.bottom >= top + stage.offsetHeight - 1
+      const away = box.bottom < 0 || box.top > innerHeight
+      if (settled && !played) {
+        played = true
+        for (const scene of scenes) delete scene.dataset.wait // they take turns through --d
+      } else if (away && played) {
+        played = false
+        for (const scene of scenes) scene.dataset.wait = ''
+      }
     }
 
     // 4. Drift. The line the page is read at runs from the top of the screen
@@ -97,8 +104,12 @@
           }
         }
       }
-      root.style.setProperty('--drift', d.toFixed(3))
+      // Only real changes: each one repaints everything drawn in the page colour.
+      if (Math.abs(d - lastDrift) < 0.01 && d !== at[0].d && d !== at[at.length - 1].d) return
+      lastDrift = d
+      root.style.setProperty('--drift', d.toFixed(2))
     }
+    let lastDrift = -1
 
     let pending = 0
     const update = () => {

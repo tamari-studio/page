@@ -248,6 +248,7 @@ void main() {
     },
     one: (box) => (wide() ? { x: box.width * 0.87, y: box.height * 0.25, scale: 0.8, depth: 0.55 } : { x: box.width * 0.36, y: box.height * 0.34, scale: 0.5, depth: 0.55 }),
     yours: (box) => ({ x: box.width * 0.47, y: box.height * 0.24, scale: 0.8, mirror: -1, depth: 0.55 }),
+    price: (box) => ({ x: box.width * 0.42, y: box.height * 0.36, scale: 0.75, depth: 0.6 }),
     close: (box) => (wide() ? { x: box.width * 0.36, y: box.height * 0.26, scale: 0.62, seam: 1, depth: 0.85 } : { x: box.width * 0.65, y: box.height * 0.42, scale: 0.5, seam: 1, depth: 0.85 }),
   }
 
