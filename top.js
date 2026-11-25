@@ -42,5 +42,7 @@
   addEventListener('scroll', stick, { passive: true })
   addEventListener('resize', measure)
   document.fonts?.ready.then(measure)
+  // The GitHub link grows when stars.js adds the star count.
+  if (window.ResizeObserver) new ResizeObserver(measure).observe(github)
   document.addEventListener('DOMContentLoaded', measure)
 }

@@ -1,5 +1,5 @@
-// Everything brand-dependent lives in this file: name, tagline, mark, colours and
-// the contact link. index.html also carries the name and tagline as plain text, so
+// Everything brand-dependent lives in this file: name, tagline, mark, colours, the
+// contact link and the GitHub repo. index.html also carries the name and tagline as plain text, so
 // link previews and crawlers that run no JavaScript see them. A rename is a change
 // here plus a find-and-replace in index.html; this script warns in the console when
 // the two differ.
@@ -11,6 +11,11 @@ const BRAND = {
 
   // Each button adds its own subject (data-subject in index.html).
   contactUrl: 'mailto:info@sunseekerlabs.dk',
+
+  // The public GitHub repo the page links to (owner/name), and whose stars stars.js counts. The
+  // links in index.html carry the same address, so they work without this script. A repo that is
+  // private or missing has no count: stars.js shows none.
+  githubRepo: 'westsoever/tamaristudio',
 
   // The two typefaces: one for headlines, one for text. All are free web fonts
   // under the SIL Open Font License, self-hosted in site/fonts/ with their
@@ -74,6 +79,8 @@ const BRAND = {
     tagline: (el) => (el.textContent = BRAND.tagline),
     mark: (el) => (el.innerHTML = BRAND.mark),
     icon: (el) => BRAND.mark && (el.href = `data:image/svg+xml,${encodeURIComponent(BRAND.mark.replace('currentColor', BRAND.colors.ink))}`),
+    github: (el) => (el.href = `https://github.com/${BRAND.githubRepo}`),
+    repo: (el) => (el.textContent = `github.com/${BRAND.githubRepo}`),
     contact: (el) => (el.href = `${BRAND.contactUrl}?subject=${encodeURIComponent(el.dataset.subject || 'Waitlist')}`),
     description: (el) => (el.content = `${BRAND.name}. ${BRAND.tagline}`),
   }
