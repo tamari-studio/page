@@ -84,6 +84,11 @@ a { color: inherit; }
 .top__github svg { display: block; flex: none; }
 .top__github-arrow { color: var(--prism-4); font-size: 0.8125rem; line-height: 1; transition: translate 0.2s var(--out); }
 .top__github:hover .top__github-arrow { translate: 1px -1px; }
+/* The star count stars.js adds (data-stars): hidden until there is a number, so the link needs no script. */
+.stars[hidden] { display: none; }
+.stars { font-variant-numeric: tabular-nums; }
+.top__github-stars { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--soft); font-size: 0.8125rem; font-weight: 500; }
+.top__github-stars [aria-hidden] { color: var(--prism-2); font-size: 0.75rem; }
 .top__github:focus-visible { outline: 2px solid var(--prism-4); outline-offset: 2px; }
 .top .brand { justify-self: start; }
 .top__nav { display: flex; gap: 0.125rem; }
@@ -404,6 +409,9 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 
 .foot { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.75rem 2.5rem; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--soft); }
 .foot .brand { color: var(--ink); font-size: 1.0625rem; }
+.foot__links { display: flex; align-items: center; gap: 1.5rem; }
+.foot__github { color: inherit; text-underline-offset: 0.2em; white-space: nowrap; }
+.foot__stars [aria-hidden] { color: var(--prism-4); }
 .foot__agents { color: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; text-underline-offset: 0.2em; }
 
 /* Reveal (motion.js): below the hero, each part rises in once as it arrives, a section's
@@ -422,8 +430,9 @@ html[data-motion] [data-reveal].is-in {
 
 /* Small tablets: the GitHub link keeps just its mark (its name is the aria-label), so the bar fits. */
 @media (max-width: 48rem) {
-  .top__github-label, .top__github-arrow { display: none; }
+  .top__github-label, .top__github-arrow, .top__github-stars { display: none; }
   .top__github { padding-inline: 0.5rem; }
+  .foot, .foot__links { flex-wrap: wrap; row-gap: 0.5rem; }
 }
 
 /* Phones: the mark stands for the name, so the links and the button fit on one line. */

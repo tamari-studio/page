@@ -1,6 +1,7 @@
 # Agent notes for tamari-page
 
-The Tamari landing page: plain HTML, CSS and a few scripts, no build step, no third-party requests.
+The Tamari landing page: plain HTML, CSS and a few scripts, no build step. The one request to anyone
+else is the GitHub star count (`stars.js`); it hides itself when it fails. Add no other.
 See README.md for what lives where.
 
 ## Every push to main publishes
