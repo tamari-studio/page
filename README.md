@@ -18,7 +18,7 @@ then open http://localhost:4173.
 
 ## Hosting
 
-Live at https://westsoever.github.io/tamari-page/ (GitHub Pages, from `main`, root folder). Every
+Live at https://tamari-studio.github.io/page/ (GitHub Pages, from `main`, root folder). Every
 push to `main` publishes. All asset paths are relative, so the page works under that subpath.
 Browsers keep each file for up to 10 minutes, so every stylesheet and script in `index.html`
 carries `?v=`; change that value (the same everywhere) with each release, or a visitor can get a new
