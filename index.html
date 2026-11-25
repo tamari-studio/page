@@ -304,42 +304,44 @@
         </div>
       </section>
 
-      <!-- DRAFT pricing (feat/pricing). The numbers are placeholders until the owner sets them:
-           $12 per person a month, $99 a month minimum per organisation. The shape is decided: per
-           person, with a per-organisation minimum that covers the org's own database and hosting
-           (its own Supabase project, about $10 a month compute on top of the Supabase plan), no AI
-           markup, and own hosting priced per deal. -->
+      <!-- Pricing, in euro. Two cards: small organisations and startups (from 12 a month on annual billing,
+           19 monthly), larger organisations (from 149 a month plus 39 per seat). No markup on AI.
+           Self-hosting under the open-source licence is in the fine print, linking to the GitHub repo. -->
       <section class="price wrap" id="pricing" aria-labelledby="price-title" data-drift="0.05">
-        <!-- One quiet glass form behind the right tier, seen through the frosted plate. -->
+        <!-- One quiet glass form behind the right card, seen through the frosted plate. -->
         <canvas class="lens price__lens" data-lens="price" aria-hidden="true"></canvas>
         <div class="glass glass--quiet price__glass" aria-hidden="true"></div>
         <h2 id="price-title">Stop paying for ten small apps. Build the three you need.</h2>
         <p class="price__lede">
-          Pay for the people who use it. Every organisation gets its own copy and its own database. The minimum covers running them.
-          Past that, you pay per person.
+          Every organisation gets its own copy and its own database. Pick the size that fits yours.
         </p>
         <div class="pair price__plate">
           <div class="tier">
-            <h3>Team</h3>
-            <p class="price__amount"><span class="price__n">$12</span> per person a month</p>
+            <h3>For small organisations &amp; startups</h3>
+            <p class="price__amount">Starting at <span class="price__n">€12</span> a month</p>
             <p>
-              From $99 a month per organisation, which covers your own database and its hosting.
+              With annual billing. Billed monthly it is €19 a month.
               Every space, connector and usage report is included.
             </p>
+            <a class="button button--quiet" data-brand="contact" data-subject="Pricing: small organisations and startups" href="#start">Join the waitlist</a>
           </div>
           <div class="tier">
-            <h3>Your own hosting</h3>
-            <p class="price__amount"><span class="price__n">Annual</span> licence</p>
+            <h3>For larger organisations</h3>
+            <p class="price__amount">Starting at <span class="price__n">€149</span> a month</p>
             <p>
-              Run it on your own servers, with your own database, for data that can’t leave your
-              walls. We price it with you.
+              Plus €39 per seat. For organisations planning to make their workforce AI-native.
+              Every space, connector and usage report is included.
             </p>
-            <a class="button button--quiet" data-brand="contact" data-subject="Pricing: own hosting" href="#start">Talk to sales</a>
+            <a class="button" data-brand="contact" data-subject="Pricing: larger organisations" href="#start">Talk to sales</a>
           </div>
         </div>
         <p class="price__ai">
           No markup on AI. Each person connects the AI they already pay for, such as Claude or Codex,
           so your provider bills you for it and we never do.
+        </p>
+        <p class="price__fine">
+          Prices are per month in euro. You can also host Tamari yourself, under its open-source
+          license: <a href="https://github.com/westsoever/tamaristudio" target="_blank" rel="noopener">github.com/westsoever/tamaristudio</a>.
         </p>
       </section>
 

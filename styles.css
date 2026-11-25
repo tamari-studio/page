@@ -370,6 +370,8 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 .price__amount { margin-bottom: 1rem; color: var(--soft); }
 .price__n { margin-right: 0.3rem; font: var(--display-weight) calc(2.5rem * var(--display-scale)) / 1.1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--ink); }
 .price__ai { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.price__fine { margin-top: 1rem; font-size: 0.875rem; color: var(--soft); }
+.price__fine a { text-decoration: underline; text-underline-offset: 0.2em; }
 /* The two tiers on one plate of frosted glass, with a quiet glass form behind the right one.
    The plate is mostly white, so the text on it reads as it does on the page. */
 .price__plate {
