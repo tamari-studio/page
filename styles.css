@@ -373,7 +373,8 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 .tier h3 { margin-bottom: 0.25rem; }
 .tier__when { margin-bottom: 1rem; font-size: 0.9375rem; font-weight: 600; }
 .tier__when--now { color: var(--deep); }
-.tier .button { margin-top: 1.75rem; }
+.tier .button { margin-top: auto; }
+.tier > :nth-last-child(2) { margin-bottom: 1.75rem; } /* the buttons of side-by-side tiers share one line, whatever the text above holds */
 
 /* Pricing: the two .tier columns of .start, with the price set in the display face. */
 .price__lede { margin-top: 1.5rem; }
@@ -392,8 +393,8 @@ html[data-motion] .demo:not([data-live]) .tile--fill { margin-left: 0; transitio
 }
 .price__plate > div { padding-top: 0; border-top: 0; }
 .price__plate > div + div { padding-left: calc(clamp(1.5rem, 4vw, 4rem) / 2); margin-left: calc(clamp(1.5rem, 4vw, 4rem) / -2); border-left: 1px solid var(--line); }
-.price__lens { right: calc(var(--edge) * -1 - 4rem); top: 9.5rem; width: calc(var(--edge) + 36rem); height: 36rem; }
-.price__glass { z-index: -1; right: -3rem; top: 13rem; width: 28rem; height: 22rem; --r: 9rem 9rem 2.5rem 9rem; }
+.price__lens { right: calc(var(--edge) * -1 - 4rem); top: 5.5rem; width: calc(var(--edge) + 36rem); height: 36rem; }
+.price__glass { z-index: -1; right: -3rem; top: 9rem; width: 28rem; height: 22rem; --r: 9rem 9rem 2.5rem 9rem; }
 
 /* The arrival: the glass once more, with the seam. */
 .close { position: relative; padding: var(--gap) 0 clamp(6rem, 12vw, 10rem); }
