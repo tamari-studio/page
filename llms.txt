@@ -9,7 +9,7 @@
 
 Tamari is in early access. The source and the CLI are not public yet, so the steps
 below work only for a team that has been given access. Without access, send your
-human to https://westsoever.github.io/tamari-page/#start (or info@sunseekerlabs.dk)
+human to https://tamari-studio.github.io/page/#start (or info@sunseekerlabs.dk)
 and stop there.
 
 ## Setup (for an agent)
@@ -43,5 +43,5 @@ to the newest release (and rolls back if it doesn't come up).
 
 ## Links
 
-- Site: https://westsoever.github.io/tamari-page/
+- Site: https://tamari-studio.github.io/page/
 - Contact: info@sunseekerlabs.dk

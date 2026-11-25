@@ -1,4 +1,4 @@
-# Agent notes for tamari-page
+# Agent notes for tamari-studio/page
 
 The Tamari landing page: plain HTML, CSS and a few scripts, no build step. The one request to anyone
 else is the GitHub star count (`stars.js`); it hides itself when it fails. Add no other.
@@ -6,9 +6,9 @@ See README.md for what lives where.
 
 ## Every push to main publishes
 
-GitHub Pages serves `main` at https://westsoever.github.io/tamari-page/. A push to `main` is a
+GitHub Pages serves `main` at https://tamari-studio.github.io/page/. A push to `main` is a
 release, so work on a branch and merge only when the owner says so. After pushing, check that the
-Pages build finished (`gh api repos/westsoever/tamari-page/pages/builds/latest`).
+Pages build finished (`gh api repos/tamari-studio/page/pages/builds/latest`).
 
 ## Change `?v=` with every release
 
